@@ -35,7 +35,7 @@ export const Memorials: CollectionConfig<'memorials'> = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
-  // This config controls what's populated by default when a post is referenced
+  // This config controls what's populated by default when a memorial is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
   // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'posts'>
   defaultPopulate: {
@@ -53,7 +53,7 @@ export const Memorials: CollectionConfig<'memorials'> = {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
-          collection: 'posts',
+          collection: 'memorials',
           req,
         })
 
@@ -63,7 +63,7 @@ export const Memorials: CollectionConfig<'memorials'> = {
     preview: (data, { req }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'posts',
+        collection: 'memorials',
         req,
       }),
     useAsTitle: 'title',
@@ -108,7 +108,7 @@ export const Memorials: CollectionConfig<'memorials'> = {
         {
           fields: [
             {
-              name: 'relatedPosts',
+              name: 'relatedMemorials',
               type: 'relationship',
               admin: {
                 position: 'sidebar',
@@ -121,7 +121,7 @@ export const Memorials: CollectionConfig<'memorials'> = {
                 }
               },
               hasMany: true,
-              relationTo: 'posts',
+              relationTo: 'memorials',
             },
             {
               name: 'categories',
