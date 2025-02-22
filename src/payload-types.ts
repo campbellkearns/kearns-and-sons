@@ -695,7 +695,6 @@ export interface Memorial {
     };
     [k: string]: unknown;
   };
-  relatedMemorials?: (string | Memorial)[] | null;
   categories?: (string | Category)[] | null;
   meta?: {
     title?: string | null;
@@ -1244,7 +1243,6 @@ export interface MemorialsSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
-  relatedMemorials?: T;
   categories?: T;
   meta?:
     | T

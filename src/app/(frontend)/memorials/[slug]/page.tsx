@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 
-import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -67,12 +66,6 @@ export default async function Memorial({ params: paramsPromise }: Args) {
             data={memorial.content}
             enableGutter={false}
           />
-          {memorial.relatedMemorials && memorial.relatedMemorials.length > 0 && (
-            <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              docs={memorial.relatedMemorials.filter((memorial) => typeof memorial === 'object')}
-            />
-          )}
         </div>
       </div>
     </article>

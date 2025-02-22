@@ -37,7 +37,7 @@ export const Memorials: CollectionConfig<'memorials'> = {
   },
   // This config controls what's populated by default when a memorial is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
-  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'posts'>
+  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'memorials'>
   defaultPopulate: {
     title: true,
     slug: true,
@@ -107,22 +107,6 @@ export const Memorials: CollectionConfig<'memorials'> = {
         },
         {
           fields: [
-            {
-              name: 'relatedMemorials',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              filterOptions: ({ id }) => {
-                return {
-                  id: {
-                    not_in: [id],
-                  },
-                }
-              },
-              hasMany: true,
-              relationTo: 'memorials',
-            },
             {
               name: 'categories',
               type: 'relationship',
