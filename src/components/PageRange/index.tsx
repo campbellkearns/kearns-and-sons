@@ -10,6 +10,10 @@ const defaultCollectionLabels = {
     plural: 'Posts',
     singular: 'Post',
   },
+  memorials: {
+    plural: 'Memorials',
+    singular: 'Memorial',
+  },
 }
 
 export const PageRange: React.FC<{
