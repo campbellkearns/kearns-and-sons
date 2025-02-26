@@ -1,6 +1,7 @@
 import { Checkbox } from './Checkbox'
 import { Country } from './Country'
 import { Email } from './Email'
+import { FileUpload } from './FileUpload'
 import { Message } from './Message'
 import { Number } from './Number'
 import { Select } from './Select'
@@ -12,6 +13,7 @@ export const fields = {
   checkbox: Checkbox,
   country: Country,
   email: Email,
+  fileUpload: FileUpload,
   message: Message,
   number: Number,
   select: Select,
