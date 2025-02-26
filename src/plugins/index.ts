@@ -13,6 +13,7 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { unique } from 'next/dist/build/utils'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
@@ -74,6 +75,17 @@ export const plugins: Plugin[] = [
         },
         fields: [
           {
+            name: 'name',
+            type: 'text',
+            label: 'Name (lowercase, no special characters)',
+            defaultValue: 'fileUpload',
+            admin: {
+              description: 'The label that will be used to control the form.',
+            },
+            unique: true,
+            required: true,
+          },
+          {
             name: 'label',
             type: 'text',
             label: 'Label',
@@ -109,7 +121,7 @@ export const plugins: Plugin[] = [
             defaultValue: '*',
             admin: {
               description:
-                'Select the file types that users are allowed to upload. Leave blank for all file types.',
+                'Select the file types that users are allowed to upload. Leave blank to allow all file types but do consider strongly whether this form needs multi-type file upload.',
             },
           },
           {

@@ -614,6 +614,10 @@ export interface Form {
           }
         | {
             /**
+             * The label that will be used to control the form.
+             */
+            name: string;
+            /**
              * The label that will be displayed on the form.
              */
             label?: string | null;
@@ -623,7 +627,7 @@ export interface Form {
             relationTo?: string | null;
             required?: boolean | null;
             /**
-             * Select the file types that users are allowed to upload. Leave blank for all file types.
+             * Select the file types that users are allowed to upload. Leave blank to allow all file types but do consider strongly whether this form needs multi-type file upload.
              */
             accept?: ('*' | 'image/*' | 'video/*' | '.pdf,.doc,.docx,.txt') | null;
             /**
@@ -1460,6 +1464,7 @@ export interface FormsSelect<T extends boolean = true> {
         undefined?:
           | T
           | {
+              name?: T;
               label?: T;
               relationTo?: T;
               required?: T;
