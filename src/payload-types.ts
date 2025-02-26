@@ -612,6 +612,38 @@ export interface Form {
             blockName?: string | null;
             blockType: 'textarea';
           }
+        | {
+            /**
+             * The label that will be displayed on the form.
+             */
+            label?: string | null;
+            /**
+             * The collection that the uploaded files will be stored in. Leave blank for no relation.
+             */
+            relationTo?: string | null;
+            required?: boolean | null;
+            /**
+             * Select the file types that users are allowed to upload. Leave blank for all file types.
+             */
+            accept?: ('*' | 'image/*' | 'video/*' | '.pdf,.doc,.docx,.txt') | null;
+            /**
+             * Allow users to upload multiple files at once
+             */
+            multiple?: boolean | null;
+            /**
+             * Maximum file size in megabytes. Leave blank for no limit.
+             */
+            maxFileSize?: number | null;
+            /**
+             * Maximum number of files that can be uploaded. Leave blank for no limit.
+             */
+            maxFiles?: number | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: {
+              [k: string]: unknown;
+            };
+          }
       )[]
     | null;
   submitButtonLabel?: string | null;
@@ -1422,6 +1454,19 @@ export interface FormsSelect<T extends boolean = true> {
               width?: T;
               defaultValue?: T;
               required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        undefined?:
+          | T
+          | {
+              label?: T;
+              relationTo?: T;
+              required?: T;
+              accept?: T;
+              multiple?: T;
+              maxFileSize?: T;
+              maxFiles?: T;
               id?: T;
               blockName?: T;
             };

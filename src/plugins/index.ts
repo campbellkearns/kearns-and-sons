@@ -58,6 +58,90 @@ export const plugins: Plugin[] = [
   formBuilderPlugin({
     fields: {
       payment: false,
+      fileUpload: {
+        type: 'upload',
+        labels: {
+          singular: 'File',
+          plural: 'Files',
+        },
+        admin: {
+          description: 'Allow users to upload files as part of the form submission',
+          components: {
+            Field: () => {
+              return null
+            },
+          },
+        },
+        fields: [
+          {
+            name: 'label',
+            type: 'text',
+            label: 'Label',
+            defaultValue: 'Upload File',
+            admin: {
+              description: 'The label that will be displayed on the form.',
+            },
+          },
+          {
+            name: 'relationTo',
+            type: 'text',
+            defaultValue: 'media',
+            admin: {
+              description:
+                'The collection that the uploaded files will be stored in. Leave blank for no relation.',
+            },
+          },
+          {
+            name: 'required',
+            type: 'checkbox',
+            label: 'Required',
+            defaultValue: false,
+          },
+          {
+            name: 'accept',
+            type: 'select',
+            options: [
+              { label: 'All Files', value: '*' },
+              { label: 'Images', value: 'image/*' },
+              { label: 'Videos', value: 'video/*' },
+              { label: 'Documents', value: '.pdf,.doc,.docx,.txt' },
+            ],
+            defaultValue: '*',
+            admin: {
+              description:
+                'Select the file types that users are allowed to upload. Leave blank for all file types.',
+            },
+          },
+          {
+            name: 'multiple',
+            type: 'checkbox',
+            label: 'Allow multifile uploads',
+            defaultValue: false,
+            admin: {
+              description: 'Allow users to upload multiple files at once',
+            },
+          },
+          {
+            name: 'maxFileSize',
+            type: 'number',
+            label: 'Maximum file size (MB)',
+            defaultValue: 5,
+            admin: {
+              description: 'Maximum file size in megabytes. Leave blank for no limit.',
+            },
+          },
+          {
+            name: 'maxFiles',
+            type: 'number',
+            label: 'Maximum number of files',
+            admin: {
+              description:
+                'Maximum number of files that can be uploaded. Leave blank for no limit.',
+              condition: (_, siblingData) => siblingData?.multiple,
+            },
+          },
+        ],
+      },
     },
     formOverrides: {
       fields: ({ defaultFields }) => {
