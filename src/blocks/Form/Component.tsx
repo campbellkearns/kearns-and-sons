@@ -52,10 +52,44 @@ export const FormBlock: React.FC<
       const submitForm = async () => {
         setError(undefined)
 
-        const dataToSend = Object.entries(data).map(([name, value]) => ({
-          field: name,
-          value,
-        }))
+        const hasFileUploads = Object.entries(data).some(([name, value]) => {
+          return (
+            value instanceof FileList ||
+            (Array.isArray(value) && value.some((v) => v instanceof FileList))
+          )
+        })
+
+        // Create FormData object if there are file uploads
+        let formData: FormData | null = null
+        if (hasFileUploads) {
+          formData = new FormData()
+          formData.append('form', formID)
+
+          // Add each form field to FormData
+          for (const [key, value] of Object.entries(data)) {
+            if (value instanceof FileList) {
+              let files = Array.from(value)
+              files.forEach((item) => {
+                if (item instanceof File) {
+                  formData?.append(`files.${key}`, item)
+                }
+              })
+            } else if (Array.isArray(value)) {
+              value.forEach((item) => {
+                if (item instanceof File) {
+                  formData?.append(`files.${key}`, item)
+                }
+              })
+            } else {
+              formData?.append(`fields.${name}`, String(value))
+            }
+          }
+        } else {
+          const dataToSend = Object.entries(data).map((name, value) => ({
+            field: name,
+            value,
+          }))
+        }
 
         // delay loading indicator by 1s
         loadingTimerID = setTimeout(() => {
@@ -63,16 +97,25 @@ export const FormBlock: React.FC<
         }, 1000)
 
         try {
-          const req = await fetch(`${getClientSideURL()}/api/form-submissions`, {
-            body: JSON.stringify({
-              form: formID,
-              submissionData: dataToSend,
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-          })
+          let req
+          if (formData) {
+            req = await fetch(`${getClientSideURL()}/api/form-submissions`, {
+              body: formData,
+              method: 'POST',
+            })
+          } else {
+            const dataToSend = Object.entries(data).map(([name, value]) => ({
+              field: name,
+              value,
+            }))
+            req = await fetch(`${getClientSideURL()}/api/form-submissions`, {
+              body: JSON.stringify({ submissionData: dataToSend, form: formID }),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              method: 'POST',
+            })
+          }
 
           const res = await req.json()
 
@@ -128,6 +171,7 @@ export const FormBlock: React.FC<
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 last:mb-0">
+                {console.log('formFromProps', formFromProps)}
                 {formFromProps &&
                   formFromProps.fields &&
                   formFromProps.fields?.map((field, index) => {
