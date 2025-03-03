@@ -114,9 +114,12 @@ export const plugins: Plugin[] = [
             type: 'select',
             options: [
               { label: 'All Files', value: '*' },
-              { label: 'Images', value: 'image/*' },
-              { label: 'Videos', value: 'video/*' },
-              { label: 'Documents', value: '.pdf,.doc,.docx,.txt' },
+              { label: 'Images Only', value: 'image/*' },
+              { label: 'Videos Only', value: 'video/*' },
+              { label: 'Documents', value: '.pdf,.doc,.docx,.txt,.rtf,.odt' },
+              { label: 'Images and Videos', value: 'image/*,video/*' },
+              { label: 'Images and Documents', value: 'image/*,.pdf,.doc,.docx,.txt,.rtf,.odt' },
+              { label: 'Audio Files', value: 'audio/*' },
             ],
             defaultValue: '*',
             admin: {
