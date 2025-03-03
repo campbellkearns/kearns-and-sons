@@ -629,7 +629,17 @@ export interface Form {
             /**
              * Select the file types that users are allowed to upload. Leave blank to allow all file types but do consider strongly whether this form needs multi-type file upload.
              */
-            accept?: ('*' | 'image/*' | 'video/*' | 'application/pdf, application/txt') | null;
+            accept?:
+              | (
+                  | '*'
+                  | 'image/*'
+                  | 'video/*'
+                  | '.pdf,.doc,.docx,.txt,.rtf,.odt'
+                  | 'image/*,video/*'
+                  | 'image/*,.pdf,.doc,.docx,.txt,.rtf,.odt'
+                  | 'audio/*'
+                )
+              | null;
             /**
              * Allow users to upload multiple files at once
              */
