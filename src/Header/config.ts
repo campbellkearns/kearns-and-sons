@@ -25,6 +25,23 @@ export const Header: GlobalConfig = {
         },
       },
     },
+    {
+      name: 'navCta',
+      label: 'Navbar Call to Action',
+      type: 'array',
+      fields: [
+        link({
+          appearances: false,
+        }),
+      ],
+      maxRows: 6,
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: '@/Header/RowLabel#RowLabel',
+        },
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidateHeader],
