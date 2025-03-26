@@ -460,7 +460,7 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
+  relationTo?: ('posts' | 'memorials') | null;
   categories?: (string | Category)[] | null;
   limit?: number | null;
   selectedDocs?:
@@ -1580,6 +1580,26 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
+  navCta?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1618,6 +1638,20 @@ export interface Footer {
  */
 export interface HeaderSelect<T extends boolean = true> {
   navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  navCta?:
     | T
     | {
         link?:
