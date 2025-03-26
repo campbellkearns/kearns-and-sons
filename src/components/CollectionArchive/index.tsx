@@ -19,8 +19,6 @@ export const CollectionArchive: React.FC<Props> = (props) => {
             if (typeof result === 'object' && result !== null) {
               return (
                 <div className="col-span-full" key={index}>
-                  // TODO: solve for memorials collection archive - may need separate for posts and
-                  memorials
                   <Card className="h-full" doc={result} relationTo="memorials" showCategories />
                 </div>
               )
