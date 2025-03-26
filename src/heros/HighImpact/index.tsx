@@ -16,7 +16,10 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
   })
 
   return (
-    <div className="relative flex items-center justify-center text-white" data-theme="dark">
+    <div
+      className="relative flex items-center justify-center text-accent-foreground"
+      data-theme="dark"
+    >
       <div className="container mb-8 z-10 relative flex items-center gap-x-2">
         <div className="md:text-left">
           {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
