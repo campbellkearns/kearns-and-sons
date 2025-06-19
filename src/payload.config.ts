@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -21,6 +22,9 @@ import { getServerSideURL } from './utilities/getURL'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+// Use cloud storage in production, local storage in development
+const useCloudStorage = process.env.NODE_ENV === 'production'
 
 export default buildConfig({
   admin: {
@@ -69,7 +73,26 @@ export default buildConfig({
   globals: [Header, Footer],
   plugins: [
     ...plugins,
-    // storage-adapter-placeholder
+    // Conditionally add S3 storage in production
+    ...(useCloudStorage ? [
+      s3Storage({
+        collections: {
+          media: {
+            disableLocalStorage: true,
+          },
+        },
+        bucket: process.env.HETZNER_BUCKET_NAME!,
+        config: {
+          credentials: {
+            accessKeyId: process.env.HETZNER_ACCESS_KEY!,
+            secretAccessKey: process.env.HETZNER_SECRET_KEY!,
+          },
+          region: 'us-east-1', // Hetzner uses this region format
+          endpoint: process.env.HETZNER_ENDPOINT!,
+          forcePathStyle: true,
+        },
+      })
+    ] : []),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
