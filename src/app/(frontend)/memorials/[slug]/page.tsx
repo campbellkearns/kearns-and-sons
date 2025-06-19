@@ -13,6 +13,7 @@ import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { Comments } from '@/components/Comments'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -66,6 +67,7 @@ export default async function Memorial({ params: paramsPromise }: Args) {
             data={memorial.content}
             enableGutter={false}
           />
+          <Comments relationID={memorial.id} relationTo="memorials" />
         </div>
       </div>
     </article>

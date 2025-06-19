@@ -17,6 +17,7 @@ export interface Config {
     memorials: Memorial;
     categories: Category;
     users: User;
+    comments: Comment;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -34,6 +35,7 @@ export interface Config {
     memorials: MemorialsSelect<false> | MemorialsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    comments: CommentsSelect<false> | CommentsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -720,6 +722,59 @@ export interface Memorial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments".
+ */
+export interface Comment {
+  id: string;
+  /**
+   * Full name of the person leaving the comment
+   */
+  authorName: string;
+  /**
+   * Email address (not displayed publicly)
+   */
+  authorEmail: string;
+  /**
+   * Optional contact phone number (not displayed publicly)
+   */
+  authorPhone?: string | null;
+  /**
+   * The condolence message or comment content
+   */
+  content: string;
+  /**
+   * What type of content this comment is for
+   */
+  relationTo: 'memorials' | 'posts';
+  /**
+   * ID of the memorial or post this comment belongs to
+   */
+  relationID: string;
+  /**
+   * Title of the memorial or post this comment belongs to
+   */
+  relatedContentTitle?: string | null;
+  /**
+   * Whether this comment has been approved for public display
+   */
+  approved?: boolean | null;
+  /**
+   * Staff member who approved/rejected this comment
+   */
+  moderatedBy?: (string | null) | User;
+  /**
+   * When this comment was moderated
+   */
+  moderatedAt?: string | null;
+  /**
+   * When this comment was originally submitted
+   */
+  submittedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -913,6 +968,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'comments';
+        value: string | Comment;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1300,6 +1359,25 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments_select".
+ */
+export interface CommentsSelect<T extends boolean = true> {
+  authorName?: T;
+  authorEmail?: T;
+  authorPhone?: T;
+  content?: T;
+  relationTo?: T;
+  relationID?: T;
+  relatedContentTitle?: T;
+  approved?: T;
+  moderatedBy?: T;
+  moderatedAt?: T;
+  submittedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
