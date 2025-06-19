@@ -14,13 +14,14 @@ interface CommentFormProps {
 interface FormData {
   authorName: string
   authorEmail: string
-  authorPhone: string
+  authorPhone?: string
   content: string
 }
 
 interface FormErrors {
   authorName?: string
   authorEmail?: string
+  authorPhone?: string
   content?: string
   general?: string
 }
@@ -87,10 +88,10 @@ export const CommentForm: React.FC<CommentFormProps> = ({
 
   // Handle input changes
   const handleInputChange = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
+    setFormData((prev) => ({ ...prev, [field]: value }))
     // Clear error for this field when user starts typing
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }))
+      setErrors((prev) => ({ ...prev, [field]: undefined }))
     }
   }
 
@@ -114,7 +115,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
         body: JSON.stringify({
           authorName: formData.authorName.trim(),
           authorEmail: formData.authorEmail.trim(),
-          authorPhone: formData.authorPhone.trim() || undefined,
+          authorPhone: formData.authorPhone?.trim() || undefined,
           content: formData.content.trim(),
           relationTo,
           relationID,
@@ -134,7 +135,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
         content: '',
       })
       setIsSubmitted(true)
-      
+
       // Call callback if provided
       onCommentSubmitted?.()
 
@@ -143,7 +144,8 @@ export const CommentForm: React.FC<CommentFormProps> = ({
     } catch (error) {
       console.error('Error submitting comment:', error)
       setErrors({
-        general: error instanceof Error ? error.message : 'Failed to submit comment. Please try again.',
+        general:
+          error instanceof Error ? error.message : 'Failed to submit comment. Please try again.',
       })
     } finally {
       setIsSubmitting(false)
@@ -169,9 +171,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
       <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
         Leave a {contentType}
       </h3>
-      <p className="text-gray-600 dark:text-gray-400 mb-6 text-base">
-        {description}
-      </p>
+      <p className="text-gray-600 dark:text-gray-400 mb-6 text-base">{description}</p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {errors.general && (
