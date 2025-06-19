@@ -31,8 +31,34 @@ export const FormBlock: React.FC<
     introContent,
   } = props
 
+  // Transform form fields into proper defaultValues for react-hook-form
+  const getDefaultValues = () => {
+    const defaultValues: Record<string, any> = {}
+
+    formFromProps.fields?.forEach((field) => {
+      // Skip message fields and other display-only fields that don't have a 'name' property
+      if ('name' in field && field.name) {
+        // Set default value if it exists, otherwise set to appropriate empty value
+        if ('defaultValue' in field && field.defaultValue !== undefined) {
+          defaultValues[field.name] = field.defaultValue
+        } else {
+          // Set appropriate empty values based on field type
+          switch (field.blockType) {
+            case 'checkbox':
+              defaultValues[field.name] = false
+              break
+            default:
+              defaultValues[field.name] = ''
+          }
+        }
+      }
+    })
+
+    return defaultValues
+  }
+
   const formMethods = useForm({
-    defaultValues: formFromProps.fields,
+    defaultValues: getDefaultValues(),
   })
   const {
     control,
@@ -47,7 +73,7 @@ export const FormBlock: React.FC<
   const router = useRouter()
 
   const onSubmit = useCallback(
-    (data: FormFieldBlock[]) => {
+    (data: Record<string, any>) => {
       let loadingTimerID: ReturnType<typeof setTimeout>
       const submitForm = async () => {
         setError(undefined)
