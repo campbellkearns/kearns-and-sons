@@ -7,6 +7,7 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
+import { Comments } from './collections/Comments'
 import { Media } from './collections/Media'
 import { Memorials } from './collections/Memorials'
 import { Pages } from './collections/Pages'
@@ -63,7 +64,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Memorials, Categories, Users],
+  collections: [Pages, Posts, Media, Memorials, Categories, Users, Comments],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
