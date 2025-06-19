@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import { lexicalEditor, FixedToolbarFeature, InlineToolbarFeature } from '@payloadcms/richtext-lexical'
 
 import { anyone } from '../../access/anyone'
 import { authenticated } from '../../access/authenticated'
@@ -62,20 +61,12 @@ export const Comments: CollectionConfig = {
     },
     {
       name: 'content',
-      type: 'richText',
+      type: 'textarea',
       required: true,
       label: 'Message',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
-        },
-      }),
       admin: {
         description: 'The condolence message or comment content',
+        rows: 4,
       },
     },
     {
