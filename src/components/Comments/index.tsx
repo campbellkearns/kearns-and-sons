@@ -3,7 +3,12 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { Comment } from '@/payload-types'
 
-export const Comments: React.FC<{ relationID: string }> = async ({ relationID }) => {
+import { CommentForm } from './CommentForm'
+
+export const Comments: React.FC<{ relationID: string; relationTo: string }> = async ({
+  relationID,
+  relationTo,
+}) => {
   const payload = await getPayload({ config: configPromise })
 
   const { docs: comments } = await payload.find({
@@ -26,6 +31,7 @@ export const Comments: React.FC<{ relationID: string }> = async ({ relationID })
           <span>{comment.authorName}</span>
         </div>
       ))}
+      <CommentForm relationTo={relationTo} relationID={relationID} />
     </div>
   )
 }
