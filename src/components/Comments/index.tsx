@@ -11,10 +11,7 @@ interface CommentsProps {
   relationTo: string
 }
 
-export const Comments: React.FC<CommentsProps> = async ({
-  relationID,
-  relationTo,
-}) => {
+export const Comments: React.FC<CommentsProps> = async ({ relationID, relationTo }) => {
   const payload = await getPayload({ config: configPromise })
 
   // Fetch approved comments only (access control in collection handles this for public users)
@@ -41,10 +38,7 @@ export const Comments: React.FC<CommentsProps> = async ({
       <div className="space-y-8">
         {/* Comments Header */}
         <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
-          <h2 
-            id="comments-heading" 
-            className="text-2xl font-bold text-gray-900 dark:text-gray-100"
-          >
+          <h2 id="comments-heading" className="text-2xl font-bold text-gray-900 dark:text-gray-100">
             {contentType} ({comments.length})
           </h2>
           {comments.length > 0 && (
@@ -57,11 +51,15 @@ export const Comments: React.FC<CommentsProps> = async ({
         {/* Comments List */}
         {comments.length > 0 ? (
           <div className="space-y-6" role="list" aria-label={`${contentType} list`}>
-            {comments.map((comment: Comment) => (
-              <div key={comment.id} role="listitem">
-                <CommentComponent comment={comment} relationTo={relationTo} />
-              </div>
-            ))}
+            {comments.map(
+              (comment: Comment) =>
+                // only render approved comments
+                comment.approved && (
+                  <div key={comment.id} role="listitem">
+                    <CommentComponent comment={comment} relationTo={relationTo} />
+                  </div>
+                ),
+            )}
           </div>
         ) : (
           <div className="text-center py-12 bg-gray-50 dark:bg-gray-900/50 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600">
@@ -77,8 +75,8 @@ export const Comments: React.FC<CommentsProps> = async ({
         )}
 
         {/* Comment Form */}
-        <CommentForm 
-          relationTo={relationTo} 
+        <CommentForm
+          relationTo={relationTo}
           relationID={relationID}
           // Optional: Add callback to refresh comments
           // onCommentSubmitted={() => router.refresh()}
