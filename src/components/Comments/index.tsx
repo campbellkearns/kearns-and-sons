@@ -24,6 +24,9 @@ export const Comments: React.FC<CommentsProps> = async ({ relationID, relationTo
       relationTo: {
         equals: relationTo,
       },
+      approved: {
+        equals: true,
+      },
     },
     limit: 100,
     sort: '-createdAt',
