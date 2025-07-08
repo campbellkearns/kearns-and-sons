@@ -1,6 +1,8 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { resendAdapter } from '@payloadcms/email-resend'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -25,6 +27,26 @@ const dirname = path.dirname(filename)
 
 // Use cloud storage in production, local storage in development
 const useCloudStorage = process.env.NODE_ENV === 'production'
+
+// Email configuration - development vs production
+const getEmailAdapter = () => {
+  // Development: Use ethereal.email for testing
+  if (process.env.NODE_ENV === 'development') {
+    console.log('📧 Using ethereal.email for development email testing')
+    return nodemailerAdapter() // Automatically uses ethereal.email
+  }
+  
+  // Production: Use Resend
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY is required in production')
+  }
+  
+  return resendAdapter({
+    defaultFromAddress: process.env.EMAIL_FROM_ADDRESS!,
+    defaultFromName: process.env.EMAIL_FROM_NAME!,
+    apiKey: process.env.RESEND_API_KEY,
+  })
+}
 
 export default buildConfig({
   admin: {
@@ -65,6 +87,8 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
+  // Email configuration
+  email: getEmailAdapter(),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),

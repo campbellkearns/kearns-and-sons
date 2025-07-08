@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { anyone } from '../../access/anyone'
 import { authenticated } from '../../access/authenticated'
+import { notifyNewCondolence, notifyCommentModeration } from '../../hooks/emailNotifications'
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -200,6 +201,7 @@ export const Comments: CollectionConfig = {
         return data
       },
     ],
+    afterChange: [notifyNewCondolence, notifyCommentModeration],
     afterRead: [
       async ({ doc, req }) => {
         // Populate relatedContentTitle for display purposes

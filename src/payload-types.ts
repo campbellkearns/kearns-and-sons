@@ -387,6 +387,13 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
   password?: string | null;
 }
 /**
@@ -771,6 +778,15 @@ export interface Memorial {
         name?: string | null;
       }[]
     | null;
+  /**
+   * Name of person who submitted this memorial via API
+   */
+  submittedBy?: string | null;
+  /**
+   * Email of person who submitted this memorial
+   */
+  submitterEmail?: string | null;
+  submissionSource?: ('admin' | 'api' | 'form') | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -1375,6 +1391,9 @@ export interface MemorialsSelect<T extends boolean = true> {
         id?: T;
         name?: T;
       };
+  submittedBy?: T;
+  submitterEmail?: T;
+  submissionSource?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -1416,6 +1435,13 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
