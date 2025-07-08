@@ -4,6 +4,107 @@
  */
 
 /**
+ * Memorial submission notification template
+ * Sent to staff when a memorial is submitted via API for review
+ */
+export const getMemorialSubmissionTemplate = ({
+  deceasedName,
+  submittedBy,
+  adminUrl,
+}: {
+  deceasedName: string
+  submittedBy?: string
+  adminUrl: string
+}) => `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Memorial Submission</title>
+  <style>
+    body { 
+      font-family: Georgia, 'Times New Roman', serif; 
+      line-height: 1.6; 
+      color: #333; 
+      max-width: 600px; 
+      margin: 0 auto; 
+      background: #f8f9fa;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header { 
+      background: #2c3e50; 
+      color: white; 
+      padding: 30px 20px; 
+      text-align: center; 
+    }
+    .content { padding: 30px; }
+    .highlight { 
+      background: #fff3cd; 
+      padding: 20px; 
+      border-left: 4px solid #ffc107; 
+      margin: 20px 0; 
+      border-radius: 4px;
+    }
+    .button { 
+      display: inline-block; 
+      background: #2c3e50; 
+      color: white; 
+      padding: 14px 28px; 
+      text-decoration: none; 
+      border-radius: 6px; 
+      margin: 20px 0;
+      font-weight: 500;
+    }
+    .footer { 
+      font-size: 14px; 
+      color: #666; 
+      text-align: center; 
+      padding: 20px; 
+      border-top: 1px solid #eee; 
+      background: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Kearns & Sons Funeral Service</h1>
+      <p>New Memorial Submission</p>
+    </div>
+    
+    <div class="content">
+      <p>A new memorial has been submitted and requires your review:</p>
+      
+      <div class="highlight">
+        <strong>Memorial for:</strong> ${deceasedName}<br>
+        ${submittedBy ? `<strong>Submitted by:</strong> ${submittedBy}<br>` : ''}
+        <strong>Status:</strong> Draft (awaiting review and approval)
+      </div>
+      
+      <p>Please review the memorial content for accuracy and appropriateness before publishing. This ensures that all information is correct and meets our standards.</p>
+      
+      <a href="${adminUrl}" class="button">Review Memorial in Admin</a>
+      
+      <p><em>This memorial submission requires your attention to ensure timely publication for the family and community.</em></p>
+    </div>
+    
+    <div class="footer">
+      This notification was sent from the Kearns & Sons website administration system.<br>
+      Please do not reply to this email.
+    </div>
+  </div>
+</body>
+</html>
+`
+
+/**
  * Memorial condolence notification template
  * Sent to staff when someone leaves a condolence on a memorial
  */
