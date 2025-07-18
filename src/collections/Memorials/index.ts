@@ -17,6 +17,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 // import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidateMemorial } from './hooks/revalidateMemorial'
+import { notifyMemorialSubmission } from '../../hooks/emailNotifications'
 
 import {
   MetaDescriptionField,
@@ -201,10 +202,55 @@ export const Memorials: CollectionConfig<'memorials'> = {
         },
       ],
     },
+    // Fields for API submissions
+    {
+      name: 'submittedBy',
+      type: 'text',
+      label: 'Submitted By',
+      admin: {
+        position: 'sidebar',
+        description: 'Name of person who submitted this memorial via API',
+        readOnly: true,
+      },
+    },
+    {
+      name: 'submitterEmail',
+      type: 'email',
+      label: 'Submitter Email',
+      admin: {
+        position: 'sidebar',
+        description: 'Email of person who submitted this memorial',
+        readOnly: true,
+      },
+    },
+    {
+      name: 'submissionSource',
+      type: 'select',
+      label: 'Submission Source',
+      options: [
+        {
+          label: 'Admin Panel',
+          value: 'admin',
+        },
+        {
+          label: 'API Submission',
+          value: 'api',
+        },
+        {
+          label: 'Website Form',
+          value: 'form',
+        },
+      ],
+      defaultValue: 'admin',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+      },
+    },
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidateMemorial],
+    afterChange: [revalidateMemorial, notifyMemorialSubmission],
     // afterRead: [populateAuthors],
     afterDelete: [revalidateDelete],
   },
