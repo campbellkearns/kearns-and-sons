@@ -345,14 +345,14 @@ export const getPostCommentNotificationTemplate = ({
  */
 export const getCommentApprovalTemplate = ({
   authorName,
-  authorEmail,
+  _authorEmail,
   commentMessage,
   contentTitle,
   contentType,
   contentUrl,
 }: {
   authorName: string
-  authorEmail: string
+  _authorEmail: string
   commentMessage: string
   contentTitle: string
   contentType: 'memorial' | 'post'

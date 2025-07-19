@@ -121,7 +121,7 @@ export const Comments: CollectionConfig = {
               })
               
               return relatedDoc?.title || 'Unknown'
-            } catch (error) {
+            } catch (_ignoreError) {
               return 'Not Found'
             }
           },
@@ -212,7 +212,7 @@ export const Comments: CollectionConfig = {
               id: doc.relationID,
             })
             doc.relatedContentTitle = relatedDoc?.title || 'Unknown'
-          } catch (error) {
+          } catch (_ignoreError) {
             doc.relatedContentTitle = 'Not Found'
           }
         }

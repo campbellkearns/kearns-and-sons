@@ -1,5 +1,5 @@
 'use client'
-import type { FormFieldBlock, Form as FormType } from '@payloadcms/plugin-form-builder/types'
+import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
@@ -47,8 +47,21 @@ export const FormBlock: React.FC<
             case 'checkbox':
               defaultValues[field.name] = false
               break
-            default:
+            case 'select':
+            case 'country':
+            case 'state':
+            case 'email':
+            case 'text':
+            case 'textarea':
+            case 'radio':
               defaultValues[field.name] = ''
+              break
+            case 'date':
+              defaultValues[field.name] = ''
+              break
+            case 'payment':
+              defaultValues[field.name] = 0
+              break
           }
         }
       }
@@ -57,7 +70,7 @@ export const FormBlock: React.FC<
     return defaultValues
   }
 
-  const formMethods = useForm({
+  const formMethods = useForm<Record<string, any>>({
     defaultValues: getDefaultValues(),
   })
   const {

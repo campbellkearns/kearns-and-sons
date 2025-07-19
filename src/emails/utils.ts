@@ -12,7 +12,7 @@ import config from '../payload.config'
 export const sendTestEmail = async (to: string) => {
   try {
     const payload = await getPayload({ config })
-    
+
     await payload.sendEmail({
       to,
       subject: 'Test Email from Kearns & Sons',
@@ -23,12 +23,12 @@ export const sendTestEmail = async (to: string) => {
         <p>Sent at: ${new Date().toISOString()}</p>
       `,
     })
-    
+
     payload.logger.info(`Test email sent to ${to}`)
     return { success: true }
   } catch (error) {
     console.error('Failed to send test email:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
@@ -36,12 +36,12 @@ export const sendTestEmail = async (to: string) => {
  * Send memorial approval notification (when staff publishes a memorial)
  */
 export const sendMemorialApprovalEmail = async ({
-  memorialId,
+  _memorialId,
   memorialTitle,
   memorialSlug,
   submitterEmail,
 }: {
-  memorialId: string
+  _memorialId: string
   memorialTitle: string
   memorialSlug: string
   submitterEmail?: string
@@ -49,7 +49,7 @@ export const sendMemorialApprovalEmail = async ({
   try {
     const payload = await getPayload({ config })
     const memorialUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/memorials/${memorialSlug}`
-    
+
     // Optionally notify the submitter that their memorial was approved
     if (submitterEmail) {
       await payload.sendEmail({
@@ -88,13 +88,13 @@ export const sendMemorialApprovalEmail = async ({
           </html>
         `,
       })
-      
+
       payload.logger.info(`Memorial approval notification sent to ${submitterEmail}`)
     }
-    
+
     return { success: true }
   } catch (error) {
     console.error('Failed to send memorial approval email:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
