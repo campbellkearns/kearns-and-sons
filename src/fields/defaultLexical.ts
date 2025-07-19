@@ -33,7 +33,7 @@ export const defaultLexical: Config['editor'] = lexicalEditor({
               },
               label: ({ t }) => t('fields:enterURL'),
               required: true,
-              validate: (value: any, options: any) => {
+              validate: (value: unknown, options: { siblingData?: { linkType?: string } }) => {
                 if (options?.siblingData?.linkType === 'internal') {
                   return true // no validation needed, as no url should exist for internal links
                 }

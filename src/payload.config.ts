@@ -30,22 +30,31 @@ const useCloudStorage = process.env.NODE_ENV === 'production'
 
 // Email configuration - development vs production
 const getEmailAdapter = () => {
-  // Development: Use ethereal.email for testing
-  if (process.env.NODE_ENV === 'development') {
-    console.log('📧 Using ethereal.email for development email testing')
-    return nodemailerAdapter() // Automatically uses ethereal.email
+  // Production: Use Resend if available
+  if (process.env.NODE_ENV === 'production') {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is required in production')
+    }
+    
+    return resendAdapter({
+      defaultFromAddress: process.env.EMAIL_FROM_ADDRESS!,
+      defaultFromName: process.env.EMAIL_FROM_NAME!,
+      apiKey: process.env.RESEND_API_KEY,
+    })
   }
   
-  // Production: Use Resend
-  if (!process.env.RESEND_API_KEY) {
-    throw new Error('RESEND_API_KEY is required in production')
+  // Development: Use ethereal.email for testing (unless RESEND_API_KEY is provided)
+  if (process.env.RESEND_API_KEY && process.env.EMAIL_FROM_ADDRESS) {
+    console.log('📧 Using Resend for development (API key found)')
+    return resendAdapter({
+      defaultFromAddress: process.env.EMAIL_FROM_ADDRESS,
+      defaultFromName: process.env.EMAIL_FROM_NAME || 'Kearns & Sons Dev',
+      apiKey: process.env.RESEND_API_KEY,
+    })
   }
   
-  return resendAdapter({
-    defaultFromAddress: process.env.EMAIL_FROM_ADDRESS!,
-    defaultFromName: process.env.EMAIL_FROM_NAME!,
-    apiKey: process.env.RESEND_API_KEY,
-  })
+  console.log('📧 Using ethereal.email for development email testing')
+  return nodemailerAdapter() // Automatically uses ethereal.email
 }
 
 export default buildConfig({
