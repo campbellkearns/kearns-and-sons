@@ -109,10 +109,15 @@ export default buildConfig({
     // Conditionally add S3 storage in production
 
     s3Storage({
-      enabled: useCloudStorage,
+      enabled: !!useCloudStorage,
       collections: {
-        media: {
-          disableLocalStorage: true,
+        media: true,
+      },
+      'media-with-presigned-downloads': {
+        signedDownloads: {
+          shouldUseSignedURL: () => {
+            return true
+          },
         },
       },
       bucket: process.env.HETZNER_BUCKET_NAME!,
