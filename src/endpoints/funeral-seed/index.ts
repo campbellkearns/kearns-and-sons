@@ -61,7 +61,7 @@ export const funeralHomeSeed = async ({
                         format: 0,
                         mode: 'normal',
                         style: '',
-                        text: 'For over three generations, Kearns & Sons has provided compassionate funeral services to our community. We understand that each life is unique and deserves to be celebrated with dignity, respect, and personal care.',
+                        text: 'For over three generations, we have provided compassionate funeral services to our community. We understand that each life is unique and deserves to be celebrated with dignity, respect, and personal care.',
                         version: 1,
                       },
                     ],
@@ -369,8 +369,8 @@ export const funeralHomeSeed = async ({
                   link: {
                     type: 'custom',
                     appearance: 'default',
-                    label: 'About Our Family',
-                    url: '/about',
+                    label: 'View Recent Memorials',
+                    url: '/memorials',
                   },
                 },
                 {
