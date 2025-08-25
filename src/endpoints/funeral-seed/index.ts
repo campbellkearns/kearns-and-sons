@@ -24,7 +24,7 @@ export const funeralHomeSeed = async ({
       await payload.create({
         collection: 'pages',
         data: {
-          title: 'Kearns & Sons Funeral Service',
+          title: 'Our Funeral Service',
           slug: 'home',
           _status: 'published',
           hero: {
@@ -347,7 +347,7 @@ export const funeralHomeSeed = async ({
                           format: 0,
                           mode: 'normal',
                           style: '',
-                          text: 'The Kearns family has been serving our community since 1952, providing guidance and support when families need it most. Our experienced staff understands the importance of honoring each life with dignity and respect.',
+                          text: 'We have been serving our community since 1973, providing guidance and support when families need it most. Our experienced staff understands the importance of honoring each life with dignity and respect.',
                           version: 1,
                         },
                       ],
