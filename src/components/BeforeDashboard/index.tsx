@@ -17,7 +17,8 @@ const BeforeDashboard: React.FC = () => {
       <ul className={`${baseClass}__instructions`}>
         <li>
           <FuneralSeedButton />
-          {' to create a professional funeral home homepage and basic navigation.'}
+        </li>
+        <li>
           {' Then, '}
 
           <a href="/" target="_blank">

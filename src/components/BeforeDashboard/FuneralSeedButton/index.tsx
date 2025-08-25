@@ -19,6 +19,7 @@ export const FuneralSeedButton: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [seeded, setSeeded] = useState(false)
   const [error, setError] = useState<null | string>(null)
+  const [showDetails, setShowDetails] = useState(false)
 
   const handleClick = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -80,10 +81,41 @@ export const FuneralSeedButton: React.FC = () => {
 
   return (
     <Fragment>
-      <button className="funeralSeedButton" onClick={handleClick}>
-        Create funeral home content
-      </button>
-      {message}
+      <div className="funeralSeedContainer">
+        <div className="funeralSeedDescription">
+          <p><strong>Create funeral home content:</strong> This will set up your website with appropriate funeral home content including:</p>
+          <ul>
+            <li>Professional home page with hero section and services overview</li>
+            <li>Header navigation (Memorials, Contact)</li>
+            <li>Footer navigation (Admin link)</li>
+            <li>Sample memorial page (saved as draft)</li>
+          </ul>
+          <p><strong>⚠️ Note:</strong> This will update your site&apos;s navigation menus. Existing pages and users will not be affected.</p>
+          <button 
+            className="funeralSeedToggle" 
+            onClick={() => setShowDetails(!showDetails)}
+            type="button"
+          >
+            {showDetails ? 'Hide details' : 'Show details'}
+          </button>
+          {showDetails && (
+            <div className="funeralSeedDetails">
+              <h4>What exactly will this do?</h4>
+              <ul>
+                <li><strong>If home page doesn&apos;t exist:</strong> Creates a new home page with funeral-appropriate content</li>
+                <li><strong>Header navigation:</strong> Sets to &quot;Memorials&quot; and &quot;Contact&quot; links</li>
+                <li><strong>Footer navigation:</strong> Sets to just &quot;Admin&quot; link</li>
+                <li><strong>Sample memorial:</strong> Creates one draft memorial for testing (not public)</li>
+                <li><strong>Safe operation:</strong> Never deletes existing content or users</li>
+              </ul>
+            </div>
+          )}
+        </div>
+        <button className="funeralSeedButton" onClick={handleClick} disabled={loading || seeded}>
+          Create funeral home content
+        </button>
+        {message && <span className="funeralSeedStatus">{message}</span>}
+      </div>
     </Fragment>
   )
 }

@@ -1,3 +1,75 @@
+.funeralSeedContainer {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 6px;
+  background: var(--theme-elevation-50);
+}
+
+.funeralSeedDescription {
+  margin-bottom: 12px;
+
+  p {
+    margin: 8px 0;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  ul {
+    margin: 8px 0 8px 20px;
+    font-size: 14px;
+    line-height: 1.4;
+
+    li {
+      margin: 4px 0;
+    }
+  }
+
+  strong {
+    color: var(--theme-text);
+  }
+}
+
+.funeralSeedToggle {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  color: var(--theme-base-600);
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--theme-text);
+  }
+}
+
+.funeralSeedDetails {
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--theme-elevation-100);
+  border-radius: 4px;
+  border-left: 3px solid var(--theme-warning-400);
+
+  h4 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--theme-text);
+  }
+
+  ul {
+    margin: 8px 0 8px 20px;
+    font-size: 13px;
+    line-height: 1.4;
+
+    li {
+      margin: 4px 0;
+    }
+  }
+}
+
 .funeralSeedButton {
   appearance: none;
   background: var(--theme-success-400);
@@ -5,11 +77,12 @@
   border-radius: 4px;
   color: var(--theme-bg);
   font-weight: 600;
-  padding: 8px 16px;
+  padding: 10px 20px;
   text-decoration: none;
   transition: all 0.2s ease;
+  margin-right: 12px;
 
-  &:hover {
+  &:hover:not(:disabled) {
     cursor: pointer;
     background: var(--theme-success-500);
     transform: translateY(-1px);
@@ -23,5 +96,13 @@
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
+    background: var(--theme-elevation-300);
+    border-color: var(--theme-elevation-400);
   }
+}
+
+.funeralSeedStatus {
+  font-size: 12px;
+  color: var(--theme-base-600);
+  font-style: italic;
 }
