@@ -35,14 +35,14 @@ const getEmailAdapter = () => {
     if (!process.env.RESEND_API_KEY) {
       throw new Error('RESEND_API_KEY is required in production')
     }
-    
+
     return resendAdapter({
       defaultFromAddress: process.env.EMAIL_FROM_ADDRESS!,
       defaultFromName: process.env.EMAIL_FROM_NAME!,
       apiKey: process.env.RESEND_API_KEY,
     })
   }
-  
+
   // Development: Use ethereal.email for testing (unless RESEND_API_KEY is provided)
   if (process.env.RESEND_API_KEY && process.env.EMAIL_FROM_ADDRESS) {
     console.log('📧 Using Resend for development (API key found)')
@@ -52,7 +52,7 @@ const getEmailAdapter = () => {
       apiKey: process.env.RESEND_API_KEY,
     })
   }
-  
+
   console.log('📧 Using ethereal.email for development email testing')
   return nodemailerAdapter() // Automatically uses ethereal.email
 }
@@ -107,25 +107,25 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // Conditionally add S3 storage in production
-    ...(useCloudStorage ? [
-      s3Storage({
-        collections: {
-          media: {
-            disableLocalStorage: true,
-          },
+
+    s3Storage({
+      enabled: useCloudStorage,
+      collections: {
+        media: {
+          disableLocalStorage: true,
         },
-        bucket: process.env.HETZNER_BUCKET_NAME!,
-        config: {
-          credentials: {
-            accessKeyId: process.env.HETZNER_ACCESS_KEY!,
-            secretAccessKey: process.env.HETZNER_SECRET_KEY!,
-          },
-          region: 'us-east-1', // Hetzner uses this region format
-          endpoint: process.env.HETZNER_ENDPOINT!,
-          forcePathStyle: true,
+      },
+      bucket: process.env.HETZNER_BUCKET_NAME!,
+      config: {
+        credentials: {
+          accessKeyId: process.env.HETZNER_ACCESS_KEY!,
+          secretAccessKey: process.env.HETZNER_SECRET_KEY!,
         },
-      })
-    ] : []),
+        region: 'us-east-1', // Hetzner uses this region format
+        endpoint: process.env.HETZNER_ENDPOINT!,
+        forcePathStyle: true,
+      },
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
