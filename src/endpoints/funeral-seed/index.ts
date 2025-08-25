@@ -20,7 +20,7 @@ export const funeralHomeSeed = async ({
 
     if (existingHome.docs.length === 0) {
       payload.logger.info('📄 Creating home page...')
-      
+
       await payload.create({
         collection: 'pages',
         data: {
@@ -386,7 +386,8 @@ export const funeralHomeSeed = async ({
           ],
           meta: {
             title: 'Kearns & Sons Funeral Service - Honoring Lives, Supporting Families',
-            description: 'Three generations of compassionate funeral services. Traditional funerals, cremation services, and memorial celebrations in a caring, professional environment.',
+            description:
+              'Three generations of compassionate funeral services. Traditional funerals, cremation services, and memorial celebrations in a caring, professional environment.',
           },
           publishedAt: new Date().toISOString(),
         },
@@ -394,7 +395,7 @@ export const funeralHomeSeed = async ({
           disableRevalidate: true,
         },
       })
-      
+
       payload.logger.info('✅ Home page created successfully')
     } else {
       payload.logger.info('ℹ️ Home page already exists, skipping...')
@@ -402,7 +403,7 @@ export const funeralHomeSeed = async ({
 
     // Set up minimal header navigation
     payload.logger.info('🧭 Setting up header navigation...')
-    
+
     await payload.updateGlobal({
       slug: 'header',
       data: {
@@ -427,12 +428,12 @@ export const funeralHomeSeed = async ({
         disableRevalidate: true,
       },
     })
-    
+
     payload.logger.info('✅ Header navigation configured')
 
     // Set up minimal footer navigation
     payload.logger.info('🦶 Setting up footer navigation...')
-    
+
     await payload.updateGlobal({
       slug: 'footer',
       data: {
@@ -450,7 +451,7 @@ export const funeralHomeSeed = async ({
         disableRevalidate: true,
       },
     })
-    
+
     payload.logger.info('✅ Footer navigation configured')
 
     // Optional: Create a sample memorial page if none exist
@@ -461,15 +462,12 @@ export const funeralHomeSeed = async ({
 
     if (existingMemorials.docs.length === 0) {
       payload.logger.info('🕊️ Creating sample memorial page...')
-      
+
       await payload.create({
         collection: 'memorials',
         data: {
-          firstName: 'Sample',
-          lastName: 'Memorial',
-          dateOfBirth: '1940-01-01',
-          dateOfDeath: '2024-01-01',
-          biography: {
+          title: 'Sample Memorial Page',
+          content: {
             root: {
               type: 'root',
               children: [
@@ -500,6 +498,7 @@ export const funeralHomeSeed = async ({
             },
           },
           _status: 'draft', // Keep as draft so it doesn't appear publicly
+          submissionSource: 'seed',
           meta: {
             title: 'Sample Memorial - Kearns & Sons Funeral Service',
             description: 'Sample memorial page for testing purposes',
@@ -509,14 +508,13 @@ export const funeralHomeSeed = async ({
           disableRevalidate: true,
         },
       })
-      
+
       payload.logger.info('✅ Sample memorial created (as draft)')
     } else {
       payload.logger.info('ℹ️ Memorial pages already exist, skipping sample creation...')
     }
 
     payload.logger.info('🎉 Funeral home seeding completed successfully!')
-
   } catch (error) {
     payload.logger.error('❌ Error during funeral home seeding:', error)
     throw error
