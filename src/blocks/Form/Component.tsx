@@ -33,7 +33,7 @@ export const FormBlock: React.FC<
 
   // Transform form fields into proper defaultValues for react-hook-form
   const getDefaultValues = () => {
-    const defaultValues: Record<string, any> = {}
+    const defaultValues: Record<string, boolean | null | number | string | undefined> = {}
 
     formFromProps.fields?.forEach((field) => {
       // Skip message fields and other display-only fields that don't have a 'name' property
@@ -70,7 +70,7 @@ export const FormBlock: React.FC<
     return defaultValues
   }
 
-  const formMethods = useForm<Record<string, any>>({
+  const formMethods = useForm<Record<string, boolean | null | number | string | undefined>>({
     defaultValues: getDefaultValues(),
   })
   const {
@@ -86,7 +86,7 @@ export const FormBlock: React.FC<
   const router = useRouter()
 
   const onSubmit = useCallback(
-    (data: Record<string, any>) => {
+    (data: Record<string, boolean | null | number | string | undefined>) => {
       let loadingTimerID: ReturnType<typeof setTimeout>
       const submitForm = async () => {
         setError(undefined)

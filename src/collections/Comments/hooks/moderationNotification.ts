@@ -8,7 +8,7 @@ import type { Comment } from '@/payload-types'
 export const notifyModerators: CollectionAfterChangeHook<Comment> = async ({
   doc, // The comment document
   operation, // 'create' | 'update'
-  req, // PayloadRequest (unused but available for future notification implementation)
+  req: _req, // PayloadRequest (unused but available for future notification implementation)
 }) => {
   // Implementation placeholder for email notifications
   // Could integrate with services like:

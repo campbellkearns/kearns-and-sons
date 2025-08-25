@@ -43,18 +43,13 @@ const getEmailAdapter = () => {
     })
   }
 
-  // Development: Use ethereal.email for testing (unless RESEND_API_KEY is provided)
-  if (process.env.RESEND_API_KEY && process.env.EMAIL_FROM_ADDRESS) {
-    console.log('📧 Using Resend for development (API key found)')
-    return resendAdapter({
-      defaultFromAddress: process.env.EMAIL_FROM_ADDRESS,
-      defaultFromName: process.env.EMAIL_FROM_NAME || 'Kearns & Sons Dev',
-      apiKey: process.env.RESEND_API_KEY,
-    })
+  // Development: Use Nodemailer with ethereal.email
+  // RESEND_API_KEY='development' as a logical workaround for
+  // the fact that Next.js builds run in production mode
+  if (process.env.RESEND_API_KEY === 'development') {
+    console.log('📧 Using ethereal.email for development email testing')
+    return nodemailerAdapter() // Automatically uses ethereal.email
   }
-
-  console.log('📧 Using ethereal.email for development email testing')
-  return nodemailerAdapter() // Automatically uses ethereal.email
 }
 
 export default buildConfig({
@@ -112,13 +107,6 @@ export default buildConfig({
       enabled: !!useCloudStorage,
       collections: {
         media: true,
-      },
-      'media-with-presigned-downloads': {
-        signedDownloads: {
-          shouldUseSignedURL: () => {
-            return true
-          },
-        },
       },
       bucket: process.env.HETZNER_BUCKET_NAME!,
       config: {
