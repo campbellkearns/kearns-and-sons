@@ -786,7 +786,7 @@ export interface Memorial {
    * Email of person who submitted this memorial
    */
   submitterEmail?: string | null;
-  submissionSource?: ('admin' | 'api' | 'form') | null;
+  submissionSource?: ('admin' | 'api' | 'seed' | 'form') | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;

@@ -237,6 +237,10 @@ export const Memorials: CollectionConfig<'memorials'> = {
           value: 'api',
         },
         {
+          label: 'Sample Data Import',
+          value: 'seed',
+        },
+        {
           label: 'Website Form',
           value: 'form',
         },
