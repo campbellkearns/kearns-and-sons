@@ -2,6 +2,7 @@ import { Banner } from '@payloadcms/ui/elements/Banner'
 import React from 'react'
 
 import { SeedButton } from './SeedButton'
+import { FuneralSeedButton } from './FuneralSeedButton'
 import './index.scss'
 
 const baseClass = 'before-dashboard'
@@ -15,17 +16,15 @@ const BeforeDashboard: React.FC = () => {
       Here&apos;s what to do next:
       <ul className={`${baseClass}__instructions`}>
         <li>
-          <SeedButton />
-          {' with a few pages, posts, and projects to jump-start your new site, then '}
+          <FuneralSeedButton />
+        </li>
+        <li>
+          {' Then, '}
+
           <a href="/" target="_blank">
             visit your website
           </a>
           {' to see the results.'}
-        </li>
-        <li>
-          If you created this repo using Payload Cloud, head over to GitHub and clone it to your
-          local machine. It will be under the <i>GitHub Scope</i> that you selected when creating
-          this project.
         </li>
         <li>
           {'Modify your '}
