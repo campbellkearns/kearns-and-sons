@@ -465,11 +465,8 @@ export const funeralHomeSeed = async ({
       await payload.create({
         collection: 'memorials',
         data: {
-          firstName: 'Sample',
-          lastName: 'Memorial',
-          dateOfBirth: '1940-01-01',
-          dateOfDeath: '2024-01-01',
-          biography: {
+          title: 'Sample Memorial Page',
+          content: {
             root: {
               type: 'root',
               children: [
@@ -500,6 +497,7 @@ export const funeralHomeSeed = async ({
             },
           },
           _status: 'draft', // Keep as draft so it doesn't appear publicly
+          submissionSource: 'admin',
           meta: {
             title: 'Sample Memorial - Kearns & Sons Funeral Service',
             description: 'Sample memorial page for testing purposes',
