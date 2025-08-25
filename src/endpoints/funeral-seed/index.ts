@@ -28,7 +28,7 @@ export const funeralHomeSeed = async ({
           slug: 'home',
           _status: 'published',
           hero: {
-            type: 'highImpact',
+            type: 'lowImpact',
             richText: {
               root: {
                 type: 'root',
