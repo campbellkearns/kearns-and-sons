@@ -1,0 +1,27 @@
+.funeralSeedButton {
+  appearance: none;
+  background: var(--theme-success-400);
+  border: 1px solid var(--theme-success-500);
+  border-radius: 4px;
+  color: var(--theme-bg);
+  font-weight: 600;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    cursor: pointer;
+    background: var(--theme-success-500);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
