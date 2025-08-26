@@ -20,10 +20,19 @@ const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
     : 'Kearns & Sons Funeral Service'
 }
 
-const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
+const generateURL: GenerateURL<Post | Page> = ({ doc, collectionSlug }) => {
   const url = getServerSideURL()
 
-  return doc?.slug ? `${url}/${doc.slug}` : url
+  if (!doc?.slug || doc.slug === 'home') return url
+
+  // Handle different URL patterns for different collections
+  if (collectionSlug === 'pages') {
+    // Pages: home page is root, others are /{slug}
+    return `${url}/${doc.slug}`
+  }
+
+  // Default fallback for other collections: /{collectionslug}/{docslug}
+  return `${url}/${collectionSlug}/${doc.slug}`
 }
 
 export const plugins: Plugin[] = [
