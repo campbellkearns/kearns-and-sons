@@ -516,7 +516,12 @@ export const funeralHomeSeed = async ({
 
     payload.logger.info('🎉 Funeral home seeding completed successfully!')
   } catch (error) {
-    payload.logger.error('❌ Error during funeral home seeding:', error)
+    payload.logger.error('❌ Error during funeral home seeding:')
+    if (error instanceof Error) {
+      payload.logger.error(error.message)
+    } else {
+      payload.logger.error(String(error))
+    }
     throw error
   }
 }
