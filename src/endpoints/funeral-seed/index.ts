@@ -3,7 +3,6 @@ import type { Payload, PayloadRequest } from 'payload'
 // Safe additive seed for funeral home content - never deletes existing data
 export const funeralHomeSeed = async ({
   payload,
-  req,
 }: {
   payload: Payload
   req: PayloadRequest
@@ -516,7 +515,12 @@ export const funeralHomeSeed = async ({
 
     payload.logger.info('🎉 Funeral home seeding completed successfully!')
   } catch (error) {
-    payload.logger.error('❌ Error during funeral home seeding:', error)
+    payload.logger.error('❌ Error during funeral home seeding:')
+    if (error instanceof Error) {
+      payload.logger.error(error.message)
+    } else {
+      payload.logger.error(String(error))
+    }
     throw error
   }
 }
