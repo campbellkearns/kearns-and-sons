@@ -3,7 +3,6 @@ import type { Payload, PayloadRequest } from 'payload'
 // Safe additive seed for funeral home content - never deletes existing data
 export const funeralHomeSeed = async ({
   payload,
-  req,
 }: {
   payload: Payload
   req: PayloadRequest
