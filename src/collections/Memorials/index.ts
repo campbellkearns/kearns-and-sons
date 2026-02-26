@@ -121,6 +121,65 @@ export const Memorials: CollectionConfig<'memorials'> = {
           label: 'Meta',
         },
         {
+          label: 'Service Details',
+          fields: [
+            {
+              name: 'serviceDetails',
+              type: 'group',
+              label: false,
+              fields: [
+                {
+                  name: 'pending',
+                  type: 'checkbox',
+                  label: 'Service details pending',
+                  defaultValue: true,
+                  admin: {
+                    description: 'Check this when service details have not yet been arranged.',
+                  },
+                },
+                {
+                  name: 'serviceDateTime',
+                  type: 'date',
+                  label: 'Service date & time',
+                  admin: {
+                    date: {
+                      pickerAppearance: 'dayAndTime',
+                    },
+                    condition: (_, siblingData) => !siblingData?.pending,
+                  },
+                },
+                {
+                  name: 'serviceLocation',
+                  type: 'text',
+                  label: 'Service location',
+                  admin: {
+                    condition: (_, siblingData) => !siblingData?.pending,
+                  },
+                },
+                {
+                  name: 'viewingDateTime',
+                  type: 'date',
+                  label: 'Viewing date & time (optional)',
+                  admin: {
+                    date: {
+                      pickerAppearance: 'dayAndTime',
+                    },
+                    condition: (_, siblingData) => !siblingData?.pending,
+                  },
+                },
+                {
+                  name: 'viewingLocation',
+                  type: 'text',
+                  label: 'Viewing location (optional)',
+                  admin: {
+                    condition: (_, siblingData) => !siblingData?.pending,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
           name: 'meta',
           label: 'SEO',
           fields: [
