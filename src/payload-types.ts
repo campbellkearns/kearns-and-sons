@@ -765,6 +765,16 @@ export interface Memorial {
     [k: string]: unknown;
   };
   categories?: (string | Category)[] | null;
+  serviceDetails?: {
+    /**
+     * Check this when service details have not yet been arranged.
+     */
+    pending?: boolean | null;
+    serviceDateTime?: string | null;
+    serviceLocation?: string | null;
+    viewingDateTime?: string | null;
+    viewingLocation?: string | null;
+  };
   meta?: {
     title?: string | null;
     /**
@@ -1392,6 +1402,15 @@ export interface MemorialsSelect<T extends boolean = true> {
   heroImage?: T;
   content?: T;
   categories?: T;
+  serviceDetails?:
+    | T
+    | {
+        pending?: T;
+        serviceDateTime?: T;
+        serviceLocation?: T;
+        viewingDateTime?: T;
+        viewingLocation?: T;
+      };
   meta?:
     | T
     | {

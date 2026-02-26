@@ -14,6 +14,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Comments } from '@/components/Comments'
+import { ServiceDetails } from '@/components/ServiceDetails'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -67,6 +68,9 @@ export default async function Memorial({ params: paramsPromise }: Args) {
             data={memorial.content}
             enableGutter={false}
           />
+          <div className="max-w-[48rem] mx-auto">
+            <ServiceDetails serviceDetails={memorial.serviceDetails} />
+          </div>
           <Comments relationID={memorial.id} relationTo="memorials" />
         </div>
       </div>
