@@ -175,6 +175,15 @@ export const Memorials: CollectionConfig<'memorials'> = {
                     condition: (_, siblingData) => !siblingData?.pending,
                   },
                 },
+                {
+                  name: 'internmentLocation',
+                  type: 'text',
+                  label: 'Internment location (optional)',
+                  admin: {
+                    description: 'Location of burial, if applicable.',
+                    condition: (_, siblingData) => !siblingData?.pending,
+                  },
+                },
               ],
             },
           ],

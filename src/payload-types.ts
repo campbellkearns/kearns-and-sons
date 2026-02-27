@@ -774,6 +774,10 @@ export interface Memorial {
     serviceLocation?: string | null;
     viewingDateTime?: string | null;
     viewingLocation?: string | null;
+    /**
+     * Location of burial, if applicable.
+     */
+    internmentLocation?: string | null;
   };
   meta?: {
     title?: string | null;
@@ -1410,6 +1414,7 @@ export interface MemorialsSelect<T extends boolean = true> {
         serviceLocation?: T;
         viewingDateTime?: T;
         viewingLocation?: T;
+        internmentLocation?: T;
       };
   meta?:
     | T

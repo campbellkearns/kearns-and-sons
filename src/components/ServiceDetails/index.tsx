@@ -21,8 +21,14 @@ const formatServiceDateTime = (iso: string): string => {
 export const ServiceDetails: React.FC<Props> = ({ serviceDetails }) => {
   if (!serviceDetails) return null
 
-  const { pending, serviceDateTime, serviceLocation, viewingDateTime, viewingLocation } =
-    serviceDetails
+  const {
+    pending,
+    serviceDateTime,
+    serviceLocation,
+    viewingDateTime,
+    viewingLocation,
+    internmentLocation,
+  } = serviceDetails
 
   const hasViewing = viewingDateTime && viewingLocation
 
@@ -49,6 +55,15 @@ export const ServiceDetails: React.FC<Props> = ({ serviceDetails }) => {
               </h3>
               <p className="font-medium">{formatServiceDateTime(viewingDateTime)}</p>
               <p>{viewingLocation}</p>
+            </div>
+          )}
+
+          {internmentLocation && (
+            <div>
+              <h3 className="text-sm uppercase tracking-wide text-muted-foreground mb-1">
+                Internment
+              </h3>
+              <p>{internmentLocation}</p>
             </div>
           )}
         </div>
