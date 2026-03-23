@@ -44,6 +44,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
+  const newTabIndicator = newTab ? <span className="sr-only"> (opens in new tab)</span> : null
 
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
@@ -51,6 +52,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
         {label && label}
         {children && children}
+        {newTabIndicator}
       </Link>
     )
   }
@@ -60,6 +62,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
         {label && label}
         {children && children}
+        {newTabIndicator}
       </Link>
     </Button>
   )
