@@ -175,7 +175,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {errors.general && (
-          <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
+          <div role="alert" className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
             <p className="text-red-800 dark:text-red-200 text-base">{errors.general}</p>
           </div>
         )}
@@ -252,7 +252,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
           {errors.content && (
             <p className="mt-1 text-red-600 dark:text-red-400 text-sm">{errors.content}</p>
           )}
-          <p className="mt-1 text-gray-500 dark:text-gray-400 text-sm">
+          <p aria-live="polite" className="mt-1 text-gray-500 dark:text-gray-400 text-sm">
             {formData.content.length}/500 characters
           </p>
         </div>
