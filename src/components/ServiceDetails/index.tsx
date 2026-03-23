@@ -39,34 +39,34 @@ export const ServiceDetails: React.FC<Props> = ({ serviceDetails }) => {
       {pending ? (
         <p className="text-muted-foreground italic">Service details have not yet been arranged.</p>
       ) : (
-        <div className="flex flex-col gap-8">
+        <dl className="flex flex-col gap-8">
           <div>
-            <h3 className="text-sm uppercase tracking-wide text-muted-foreground mb-1">Service</h3>
+            <dt className="text-sm uppercase tracking-wide text-muted-foreground mb-1">Service</dt>
             {serviceDateTime && (
-              <p className="font-medium">{formatServiceDateTime(serviceDateTime)}</p>
+              <dd className="font-medium">{formatServiceDateTime(serviceDateTime)}</dd>
             )}
-            {serviceLocation && <p>{serviceLocation}</p>}
+            {serviceLocation && <dd>{serviceLocation}</dd>}
           </div>
 
           {hasViewing && (
             <div>
-              <h3 className="text-sm uppercase tracking-wide text-muted-foreground mb-1">
+              <dt className="text-sm uppercase tracking-wide text-muted-foreground mb-1">
                 Viewing
-              </h3>
-              <p className="font-medium">{formatServiceDateTime(viewingDateTime)}</p>
-              <p>{viewingLocation}</p>
+              </dt>
+              <dd className="font-medium">{formatServiceDateTime(viewingDateTime)}</dd>
+              <dd>{viewingLocation}</dd>
             </div>
           )}
 
           {internmentLocation && (
             <div>
-              <h3 className="text-sm uppercase tracking-wide text-muted-foreground mb-1">
+              <dt className="text-sm uppercase tracking-wide text-muted-foreground mb-1">
                 Internment
-              </h3>
-              <p>{internmentLocation}</p>
+              </dt>
+              <dd>{internmentLocation}</dd>
             </div>
           )}
-        </div>
+        </dl>
       )}
     </section>
   )
