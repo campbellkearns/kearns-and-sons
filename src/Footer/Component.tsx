@@ -16,13 +16,13 @@ export async function Footer() {
   return (
     <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
       <div className="container py-8 gap-8 flex justify-between">
-        <Link className="flex items-center" href="/">
+        <Link aria-label="Kearns and Sons — home" className="flex items-center" href="/">
           <Logo />
         </Link>
 
         <div className="flex items-center gap-4 ">
           <ThemeSelector />
-          <nav className="flex flex-col md:flex-row gap-4">
+          <nav aria-label="Footer" className="flex flex-col md:flex-row gap-4">
             {navItems.map(({ link }, i) => {
               return <CMSLink className="text-white" key={i} {...link} />
             })}
