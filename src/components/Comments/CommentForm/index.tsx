@@ -155,7 +155,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
   // Success state
   if (isSubmitted) {
     return (
-      <div className="p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+      <div role="status" className="p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
         <h3 className="text-lg font-semibold text-green-800 dark:text-green-200 mb-2">
           Thank you for your {contentType.toLowerCase()}
         </h3>
@@ -175,7 +175,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {errors.general && (
-          <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
+          <div role="alert" className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
             <p className="text-red-800 dark:text-red-200 text-base">{errors.general}</p>
           </div>
         )}
@@ -192,11 +192,13 @@ export const CommentForm: React.FC<CommentFormProps> = ({
               value={formData.authorName}
               onChange={(e) => handleInputChange('authorName', e.target.value)}
               className={`mt-2 text-base h-12 ${errors.authorName ? 'border-red-500 focus:ring-red-500' : ''}`}
+              aria-invalid={!!errors.authorName}
+              aria-describedby={errors.authorName ? 'authorName-error' : undefined}
               required
               disabled={isSubmitting}
             />
             {errors.authorName && (
-              <p className="mt-1 text-red-600 dark:text-red-400 text-sm">{errors.authorName}</p>
+              <p id="authorName-error" className="mt-1 text-red-600 dark:text-red-400 text-sm">{errors.authorName}</p>
             )}
           </div>
 
@@ -211,11 +213,13 @@ export const CommentForm: React.FC<CommentFormProps> = ({
               value={formData.authorEmail}
               onChange={(e) => handleInputChange('authorEmail', e.target.value)}
               className={`mt-2 text-base h-12 ${errors.authorEmail ? 'border-red-500 focus:ring-red-500' : ''}`}
+              aria-invalid={!!errors.authorEmail}
+              aria-describedby={errors.authorEmail ? 'authorEmail-error' : undefined}
               required
               disabled={isSubmitting}
             />
             {errors.authorEmail && (
-              <p className="mt-1 text-red-600 dark:text-red-400 text-sm">{errors.authorEmail}</p>
+              <p id="authorEmail-error" className="mt-1 text-red-600 dark:text-red-400 text-sm">{errors.authorEmail}</p>
             )}
           </div>
         </div>
@@ -246,13 +250,15 @@ export const CommentForm: React.FC<CommentFormProps> = ({
             value={formData.content}
             onChange={(e) => handleInputChange('content', e.target.value)}
             className={`mt-2 text-base resize-none ${errors.content ? 'border-red-500 focus:ring-red-500' : ''}`}
+            aria-invalid={!!errors.content}
+            aria-describedby={`content-counter${errors.content ? ' content-error' : ''}`}
             required
             disabled={isSubmitting}
           />
           {errors.content && (
-            <p className="mt-1 text-red-600 dark:text-red-400 text-sm">{errors.content}</p>
+            <p id="content-error" className="mt-1 text-red-600 dark:text-red-400 text-sm">{errors.content}</p>
           )}
-          <p className="mt-1 text-gray-500 dark:text-gray-400 text-sm">
+          <p id="content-counter" aria-live="polite" className="mt-1 text-gray-500 dark:text-gray-400 text-sm">
             {formData.content.length}/500 characters
           </p>
         </div>

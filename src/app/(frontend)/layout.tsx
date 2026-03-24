@@ -34,8 +34,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
 
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded focus:shadow-lg"
+          >
+            Skip to main content
+          </a>
           <Header />
-          {children}
+          <main id="main-content">{children}</main>
           <Footer />
         </Providers>
       </body>
@@ -48,6 +54,5 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
   },
 }
