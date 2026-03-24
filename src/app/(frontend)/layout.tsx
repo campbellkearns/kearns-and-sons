@@ -41,9 +41,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             Skip to main content
           </a>
           <Header />
-          <main id="main-content">
-            {children}
-          </main>
+          <main id="main-content">{children}</main>
           <Footer />
         </Providers>
       </body>
@@ -56,6 +54,5 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
   },
 }
