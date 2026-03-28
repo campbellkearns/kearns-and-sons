@@ -198,7 +198,15 @@ export interface Page {
       | null;
     media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | TrustBarBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | TrustBarBlock
+    | ContactInfoBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -759,6 +767,29 @@ export interface TrustBarBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock".
+ */
+export interface ContactInfoBlock {
+  /**
+   * Include formatting, e.g. (910) 576-0531
+   */
+  phone?: string | null;
+  address?: string | null;
+  /**
+   * e.g. Monday–Friday: 8am–5pm
+   * Saturday: 9am–1pm
+   */
+  hours?: string | null;
+  /**
+   * Paste the embed URL from Google Maps (Maps → Share → Embed a map → copy src URL)
+   */
+  googleMapsEmbedUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactInfo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "memorials".
  */
 export interface Memorial {
@@ -1191,6 +1222,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         trustBar?: T | TrustBarBlockSelect<T>;
+        contactInfo?: T | ContactInfoBlockSelect<T>;
       };
   meta?:
     | T
@@ -1302,6 +1334,18 @@ export interface TrustBarBlockSelect<T extends boolean = true> {
         detail?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock_select".
+ */
+export interface ContactInfoBlockSelect<T extends boolean = true> {
+  phone?: T;
+  address?: T;
+  hours?: T;
+  googleMapsEmbedUrl?: T;
   id?: T;
   blockName?: T;
 }
