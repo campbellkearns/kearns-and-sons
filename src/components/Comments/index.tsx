@@ -9,9 +9,10 @@ import { CommentComponent } from './Comment'
 interface CommentsProps {
   relationID: string
   relationTo: string
+  subjectName?: string
 }
 
-export const Comments: React.FC<CommentsProps> = async ({ relationID, relationTo }) => {
+export const Comments: React.FC<CommentsProps> = async ({ relationID, relationTo, subjectName }) => {
   const payload = await getPayload({ config: configPromise })
 
   // Fetch approved comments only (access control in collection handles this for public users)
@@ -67,11 +68,10 @@ export const Comments: React.FC<CommentsProps> = async ({ relationID, relationTo
         ) : (
           <div className="text-center py-12 bg-gray-50 dark:bg-gray-900/50 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600">
             <div className="mx-auto max-w-md">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-                No {contentType.toLowerCase()} yet
-              </h3>
               <p className="text-gray-600 dark:text-gray-400 text-base">
-                Be the first to share a {singleContentType}.
+                {relationTo === 'memorials' && subjectName
+                  ? `No condolences have been shared yet. Be the first to honor ${subjectName}'s memory.`
+                  : `No ${contentType.toLowerCase()} have been shared yet.`}
               </p>
             </div>
           </div>

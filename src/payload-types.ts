@@ -198,7 +198,15 @@ export interface Page {
       | null;
     media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | TrustBarBlock
+    | ContactInfoBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -743,6 +751,45 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrustBarBlock".
+ */
+export interface TrustBarBlock {
+  items?:
+    | {
+        label: string;
+        detail: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'trustBar';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock".
+ */
+export interface ContactInfoBlock {
+  /**
+   * Include formatting, e.g. (910) 576-0531
+   */
+  phone?: string | null;
+  address?: string | null;
+  /**
+   * e.g. Monday–Friday: 8am–5pm
+   * Saturday: 9am–1pm
+   */
+  hours?: string | null;
+  /**
+   * Paste the embed URL from Google Maps (Maps → Share → Embed a map → copy src URL)
+   */
+  googleMapsEmbedUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactInfo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "memorials".
  */
 export interface Memorial {
@@ -1174,6 +1221,8 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        trustBar?: T | TrustBarBlockSelect<T>;
+        contactInfo?: T | ContactInfoBlockSelect<T>;
       };
   meta?:
     | T
@@ -1270,6 +1319,33 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TrustBarBlock_select".
+ */
+export interface TrustBarBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        label?: T;
+        detail?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock_select".
+ */
+export interface ContactInfoBlockSelect<T extends boolean = true> {
+  phone?: T;
+  address?: T;
+  hours?: T;
+  googleMapsEmbedUrl?: T;
   id?: T;
   blockName?: T;
 }
@@ -1770,6 +1846,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: string;
+  /**
+   * Displayed prominently in the header. Include formatting, e.g. (910) 576-0531
+   */
+  phoneNumber?: string | null;
   navItems?:
     | {
         link: {
@@ -1847,6 +1927,7 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  phoneNumber?: T;
   navItems?:
     | T
     | {
