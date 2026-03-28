@@ -36,8 +36,8 @@ export const CommentForm: React.FC<CommentFormProps> = ({
     memorials: {
       contentType: 'Condolence',
       placeholder: 'Share your condolences and memories...',
-      submitText: 'Submit Condolence',
-      description: 'Your condolence will be reviewed before appearing publicly.',
+      submitText: 'Send Condolence',
+      description: 'Your condolence will appear after a brief review.',
     },
     posts: {
       contentType: 'Comment',
@@ -169,7 +169,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
   return (
     <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-800">
       <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
-        Leave a {contentType}
+        Share a {contentType}
       </h3>
       <p className="text-gray-600 dark:text-gray-400 mb-6 text-base">{description}</p>
 

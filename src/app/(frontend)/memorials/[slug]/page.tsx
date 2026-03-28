@@ -71,7 +71,7 @@ export default async function Memorial({ params: paramsPromise }: Args) {
           <div className="max-w-[48rem] mx-auto">
             <ServiceDetails serviceDetails={memorial.serviceDetails} />
           </div>
-          <Comments relationID={memorial.id} relationTo="memorials" />
+          <Comments relationID={memorial.id} relationTo="memorials" subjectName={memorial.title} />
         </div>
       </div>
     </article>
