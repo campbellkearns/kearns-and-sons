@@ -10,6 +10,14 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'phoneNumber',
+      type: 'text',
+      label: 'Phone Number',
+      admin: {
+        description: 'Displayed prominently in the header. Include formatting, e.g. (910) 576-0531',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
