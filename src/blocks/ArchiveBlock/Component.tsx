@@ -1,4 +1,4 @@
-import type { Post, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
+import type { Post, Memorial, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -12,11 +12,12 @@ export const ArchiveBlock: React.FC<
     id?: string
   }
 > = async (props) => {
-  const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs } = props
+  const { id, categories, introContent, limit: limitFromProps, populateBy, relationTo, selectedDocs } = props
 
   const limit = limitFromProps || 3
+  const collection = relationTo || 'posts'
 
-  let posts: Post[] = []
+  let docs: (Post | Memorial)[] = []
 
   if (populateBy === 'collection') {
     const payload = await getPayload({ config: configPromise })
@@ -26,29 +27,23 @@ export const ArchiveBlock: React.FC<
       else return category
     })
 
-    const fetchedPosts = await payload.find({
-      collection: 'posts',
-      depth: 1,
-      limit,
-      ...(flattenedCategories && flattenedCategories.length > 0
-        ? {
-            where: {
-              categories: {
-                in: flattenedCategories,
-              },
-            },
-          }
-        : {}),
-    })
+    const whereClause =
+      flattenedCategories && flattenedCategories.length > 0
+        ? { where: { categories: { in: flattenedCategories } } }
+        : {}
 
-    posts = fetchedPosts.docs
+    if (collection === 'memorials') {
+      const fetched = await payload.find({ collection: 'memorials', depth: 1, limit, ...whereClause })
+      docs = fetched.docs
+    } else {
+      const fetched = await payload.find({ collection: 'posts', depth: 1, limit, ...whereClause })
+      docs = fetched.docs
+    }
   } else {
     if (selectedDocs?.length) {
-      const filteredSelectedPosts = selectedDocs.map((post) => {
-        if (typeof post.value === 'object') return post.value
+      docs = selectedDocs.map((doc) => {
+        if (typeof doc.value === 'object') return doc.value
       }) as Post[]
-
-      posts = filteredSelectedPosts
     }
   }
 
@@ -59,7 +54,7 @@ export const ArchiveBlock: React.FC<
           <RichText className="ml-0 max-w-[48rem]" data={introContent} enableGutter={false} />
         </div>
       )}
-      <CollectionArchive posts={posts} />
+      <CollectionArchive posts={docs} />
     </div>
   )
 }
