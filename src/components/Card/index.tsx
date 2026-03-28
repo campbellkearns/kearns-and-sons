@@ -40,7 +40,7 @@ export const Card: React.FC<{
     >
       <div className="sm:flex-1 relative w-full ">
         {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
+        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" />}
       </div>
       <div className="sm:flex-3 gap-4 p-4">
         <div className="flex flex-col">
