@@ -36,10 +36,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           {phoneNumber}
         </a>
       )}
-      {/* <Link href="/search">
-        <span className="sr-only">Search</span>
-        <SearchIcon className="w-5 text-primary" />
-      </Link> */}
+
     </nav>
   )
 }
