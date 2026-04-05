@@ -15,3 +15,7 @@ public/sitemap*.xml
 
 # context for local agent development
 llm_context/
+
+# Storybook
+debug-storybook.log
+storybook-static/
