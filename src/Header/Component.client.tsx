@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
+import { MobileNav } from '@/components/MobileNav'
 import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
@@ -30,14 +31,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }, [headerTheme])
 
   return (
-    <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-8 flex">
-        <div className="flex gap-x-8 w-full items-center">
-          <Link href="/" aria-label="Kearns and Sons — home">
-            <Logo loading="eager" priority="high" className="dark:invert-25" />
-          </Link>
+    <header className="container relative z-20" {...(theme ? { 'data-theme': theme } : {})}>
+      <div className="py-8 flex items-center justify-between">
+        <Link href="/" aria-label="Kearns and Sons — home">
+          <Logo loading="eager" priority="high" className="dark:invert-25" />
+        </Link>
+
+        {/* Desktop nav — hidden below lg */}
+        <div className="hidden lg:flex">
           <HeaderNav data={data} />
         </div>
+
+        {/* Mobile nav — trigger visible below lg, panel full-viewport */}
+        <MobileNav data={data} />
       </div>
     </header>
   )
