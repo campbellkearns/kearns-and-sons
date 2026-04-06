@@ -2,6 +2,7 @@
 
 import { cn } from '@/utilities/ui'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
+import * as LabelPrimitive from '@radix-ui/react-label'
 import { Check } from 'lucide-react'
 import * as React from 'react'
 
@@ -24,4 +25,20 @@ const Checkbox: React.FC<
   </CheckboxPrimitive.Root>
 )
 
-export { Checkbox }
+interface CheckboxFieldProps extends React.ComponentProps<typeof CheckboxPrimitive.Root> {
+  label: string
+  id: string
+  ref?: React.Ref<HTMLButtonElement>
+}
+
+const CheckboxField: React.FC<CheckboxFieldProps> = ({ label, id, ref, ...props }) => (
+  <LabelPrimitive.Root
+    htmlFor={id}
+    className="flex min-h-[44px] cursor-pointer items-center gap-3 font-body text-base font-normal leading-snug"
+  >
+    <Checkbox id={id} ref={ref} {...props} />
+    {label}
+  </LabelPrimitive.Root>
+)
+
+export { Checkbox, CheckboxField }
