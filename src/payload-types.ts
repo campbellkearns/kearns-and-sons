@@ -1857,6 +1857,22 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Business address. Line breaks render as separate lines in the footer.
+   */
+  address?: string | null;
+  /**
+   * Click-to-call phone number. Include formatting, e.g. (910) 576-0531
+   */
+  phoneNumber?: string | null;
+  /**
+   * Hours of operation, e.g. "Mon–Fri: 8am–6pm\nAvailable 24/7 for emergencies"
+   */
+  hoursOfOperation?: string | null;
+  /**
+   * Service area descriptor, e.g. "Troy, NC and surrounding communities"
+   */
+  serviceArea?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1917,6 +1933,10 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  address?: T;
+  phoneNumber?: T;
+  hoursOfOperation?: T;
+  serviceArea?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
