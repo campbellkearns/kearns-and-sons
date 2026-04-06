@@ -1,5 +1,6 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
+import { ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -44,7 +45,12 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
-  const newTabIndicator = newTab ? <span className="sr-only"> (opens in new tab)</span> : null
+  const newTabIndicator = newTab ? (
+    <>
+      <ExternalLink className="inline-block ml-1 size-3.5 align-middle" aria-hidden="true" />
+      <span className="sr-only"> (opens in new tab)</span>
+    </>
+  ) : null
 
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {

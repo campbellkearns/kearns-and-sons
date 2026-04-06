@@ -37,6 +37,7 @@ const PaginationLink = ({ className, isActive, size = 'icon', ...props }: Pagina
         size,
         variant: isActive ? 'outline' : 'ghost',
       }),
+      'aria-disabled:opacity-50 aria-disabled:pointer-events-none',
       className,
     )}
     {...props}
