@@ -18,11 +18,10 @@ export async function Footer() {
     <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
       <div className="container py-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-
           {/* Left: brand + contact info */}
           <div className="flex flex-col gap-5">
-            <Link href="/" aria-label="Kearns and Sons — home" className="inline-block">
-              <Logo />
+            <Link href="/" aria-label="Kearns and Sons — home" className="self-start">
+              <Logo className="size-16 lg:size-32" />
             </Link>
 
             {address && (
@@ -47,11 +46,7 @@ export async function Footer() {
               </p>
             )}
 
-            {serviceArea && (
-              <p className="font-body text-sm text-white/60 italic">
-                {serviceArea}
-              </p>
-            )}
+            {serviceArea && <p className="font-body text-sm text-white/60 italic">{serviceArea}</p>}
           </div>
 
           {/* Right: quick links */}
@@ -60,7 +55,10 @@ export async function Footer() {
               <ul className="flex flex-col gap-3 list-none">
                 {navItems.map(({ link }, i) => (
                   <li key={i}>
-                    <CMSLink className="font-body text-sm text-white/80 hover:text-white transition-colors" {...link} />
+                    <CMSLink
+                      className="font-body text-sm text-white/80 hover:text-white transition-colors"
+                      {...link}
+                    />
                   </li>
                 ))}
               </ul>
