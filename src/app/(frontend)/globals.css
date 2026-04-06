@@ -27,11 +27,18 @@
   h4,
   h5,
   h6 {
-    font-size: auto;
-    font-weight: auto;
+    font-family: var(--font-display);
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--text-base); /* 18px */
   }
 
   :root {
+    /* Font alias — --font-display and --font-body injected by next/font on <html> */
+    --font-mono: var(--font-geist-mono);
+
     /* Brand: navy + warm gold */
     --background: 36 33% 97%;
     --foreground: 214 30% 12%;
@@ -41,9 +48,12 @@
     --popover-foreground: 214 30% 12%;
     --primary: 214 57% 22%;
     --primary-foreground: 0 0% 100%;
+    --primary-hover: 214 57% 30%;
     --secondary: 214 25% 88%;
     --secondary-foreground: 214 57% 22%;
     --muted: 36 15% 88%;
+    /* ⚠ muted-foreground: ~4.1:1 against background — decorative/non-essential text only.
+       Never use for body copy, labels, or interactive states. Use --label (7:1) for semantic use. */
     --muted-foreground: 214 15% 45%;
     --accent: 38 65% 50%;
     --accent-foreground: 0 0% 100%;
@@ -52,12 +62,33 @@
     --border: 214 20% 84%;
     --input: 214 20% 80%;
     --ring: 214 57% 22%;
+    --label: 214 30% 28%; /* verified 7:1 contrast against --background */
     --radius: 0.5rem;
 
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
     --error: 10 100% 86%;
+
+    /* Type scale — 18px base, per PRD §4 */
+    --text-xs:      0.875rem;  /* 14px  lh 1.5  */
+    --text-sm:      1rem;      /* 16px  lh 1.5  */
+    --text-base:    1.125rem;  /* 18px  lh 1.6  */
+    --text-lg:      1.25rem;   /* 20px  lh 1.5  */
+    --text-xl:      1.5rem;    /* 24px  lh 1.4  */
+    --text-2xl:     1.875rem;  /* 30px  lh 1.3  */
+    --text-3xl:     2.375rem;  /* 38px  lh 1.2  */
+    --text-4xl:     3rem;      /* 48px  lh 1.15 */
+    --text-display: 3.75rem;   /* 60px  lh 1.05 */
+
+    /* Motion tokens */
+    --duration-fast:  150ms;
+    --duration-base:  250ms;
+    --duration-slow:  400ms;
+    --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --easing-in:      cubic-bezier(0.4, 0, 1, 1);
+    --easing-out:     cubic-bezier(0, 0, 0.2, 1);
   }
+
   [data-theme='dark'] {
     /* Dark: deep navy background, bright navy primary, same gold accent */
     --background: 214 40% 8%;
@@ -68,10 +99,13 @@
     --popover-foreground: 36 33% 93%;
     --primary: 214 65% 55%;
     --primary-foreground: 0 0% 100%;
+    --primary-hover: 214 65% 65%; /* lighter than primary in dark */
     --secondary: 214 30% 22%;
     --secondary-foreground: 36 33% 90%;
     --muted: 214 25% 18%;
+    /* ⚠ muted-foreground dark: ~4.3:1 — decorative only, same constraint as light theme */
     --muted-foreground: 214 15% 60%;
+    /* --accent at 38 65% 50% passes ~7.2:1 against dark background — no adjustment needed */
     --accent: 38 65% 50%;
     --accent-foreground: 214 57% 12%;
     --destructive: 0 50% 46%;
@@ -79,13 +113,13 @@
     --border: 214 30% 28%;
     --input: 214 30% 28%;
     --ring: 38 65% 50%;
+    --label: 214 20% 72%; /* lighter in dark — maintains 7:1 against dark background */
     --radius: 0.5rem;
 
     --success: 196 100% 14%;
     --warning: 34 51% 25%;
     --error: 10 39% 43%;
   }
-
 }
 
 @layer base {
@@ -94,6 +128,17 @@
   }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

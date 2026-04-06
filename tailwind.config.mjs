@@ -83,7 +83,9 @@ const config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          hover: 'hsl(var(--primary-hover))',
         },
+        label: 'hsl(var(--label))',
         ring: 'hsl(var(--ring))',
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -94,8 +96,22 @@ const config = {
         warning: 'hsl(var(--warning))',
       },
       fontFamily: {
-        mono: ['var(--font-geist-mono)'],
-        sans: ['var(--font-geist-sans)'],
+        heading: ['var(--font-display)', 'Georgia', 'serif'],
+        body:    ['var(--font-body)', 'Georgia', 'serif'],
+        mono:    ['var(--font-mono)', 'ui-monospace', 'monospace'],
+        // sans removed — PT Serif applied globally via body rule in globals.css
+        // Any font-sans usage will fall back to Tailwind default; audit + replace in DEV-49+
+      },
+      fontSize: {
+        xs:      ['var(--text-xs)',      { lineHeight: '1.5' }],
+        sm:      ['var(--text-sm)',      { lineHeight: '1.5' }],
+        base:    ['var(--text-base)',    { lineHeight: '1.6' }],
+        lg:      ['var(--text-lg)',      { lineHeight: '1.5' }],
+        xl:      ['var(--text-xl)',      { lineHeight: '1.4' }],
+        '2xl':   ['var(--text-2xl)',     { lineHeight: '1.3' }],
+        '3xl':   ['var(--text-3xl)',     { lineHeight: '1.2' }],
+        '4xl':   ['var(--text-4xl)',     { lineHeight: '1.15' }],
+        display: ['var(--text-display)', { lineHeight: '1.05' }],
       },
       keyframes: {
         'accordion-down': {
