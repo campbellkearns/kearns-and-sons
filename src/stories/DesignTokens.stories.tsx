@@ -25,12 +25,14 @@ const COLOR_TOKENS = [
   { token: 'card-foreground', alias: 'Deep Navy (soft)' },
   { token: 'primary', alias: 'Kearns Navy' },
   { token: 'primary-foreground', alias: 'White' },
+  { token: 'primary-hover', alias: 'Navy Hover' },
   { token: 'secondary', alias: 'Light Steel' },
   { token: 'secondary-foreground', alias: 'Kearns Navy' },
   { token: 'accent', alias: 'Warm Gold' },
   { token: 'accent-foreground', alias: 'Deep Navy' },
   { token: 'muted', alias: 'Muted Warm' },
   { token: 'muted-foreground', alias: 'Slate Gray ⚠' },
+  { token: 'label', alias: 'Label Navy (7:1)' },
   { token: 'border', alias: 'Steel Border' },
   { token: 'success', alias: 'Teal Tint' },
   { token: 'warning', alias: 'Amber Tint' },
@@ -98,8 +100,8 @@ const MOTION_CONFIGS = [
 // ─── Shared styles ────────────────────────────────────────────────────────────
 
 const mono = 'var(--font-mono, ui-monospace, "Geist Mono", monospace)'
-const bodyFont = 'var(--font-body, var(--font-geist-sans), system-ui, sans-serif)'
-const displayFont = 'var(--font-display, var(--font-geist-sans), system-ui, sans-serif)'
+const bodyFont = 'var(--font-body, Georgia, serif)'
+const displayFont = 'var(--font-display, Georgia, serif)'
 
 // ─── Atoms ────────────────────────────────────────────────────────────────────
 
@@ -473,16 +475,15 @@ function DesignTokensPage() {
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.5rem 1rem',
-            background: 'hsl(var(--warning))',
+            background: 'hsl(var(--muted))',
             border: '1px solid hsl(var(--border))',
             borderRadius: 'var(--radius)',
             fontSize: 13,
             fontFamily: mono,
-            color: 'hsl(var(--foreground))',
+            color: 'hsl(var(--muted-foreground))',
           }}
         >
-          ⚠ &nbsp;Typography tokens (Neuton + PT Serif, 18px base) pending DEV-48 — Geist shown as
-          placeholder.
+          Neuton · PT Serif · 18px base · navy/gold palette
         </div>
       </header>
 
@@ -511,9 +512,9 @@ function DesignTokensPage() {
         <SectionLabel index="02" title="Typography" />
         <Prose>
           Base size is <strong style={{ color: 'hsl(var(--foreground))' }}>18px</strong> — not
-          Tailwind's default 16px. Display font (Neuton) is used for h1–h3; body font (PT Serif) for
+          Tailwind&apos;s default 16px. Display font (Neuton) is used for h1–h3; body font (PT Serif) for
           h4 and below, body copy, and UI text. Specimens use <Code>var(--font-display)</Code> /{' '}
-          <Code>var(--font-body)</Code>, resolving to Geist until DEV-48.
+          <Code>var(--font-body)</Code>.
         </Prose>
 
         {/* Display font */}
@@ -530,7 +531,7 @@ function DesignTokensPage() {
               borderBottom: '1px solid hsl(var(--border))',
             }}
           >
-            Display — var(--font-display) · Neuton after DEV-48
+            Display — var(--font-display) · Neuton
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             {TYPE_SCALE.filter((s) => s.font === 'display').map((step) => (
@@ -557,7 +558,7 @@ function DesignTokensPage() {
               borderBottom: '1px solid hsl(var(--border))',
             }}
           >
-            Body — var(--font-body) · PT Serif after DEV-48
+            Body — var(--font-body) · PT Serif
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             {TYPE_SCALE.filter((s) => s.font === 'body').map((step, i) => (
@@ -714,10 +715,9 @@ function DesignTokensPage() {
       <section aria-labelledby="section-motion">
         <SectionLabel index="05" title="Motion" />
         <Prose>
-          Motion tokens are pending DEV-48. Durations and easings below are the PRD-specified values.
-          All keyframe animations must be wrapped in{' '}
-          <Code>@media (prefers-reduced-motion: no-preference)</Code>. Toggle the simulation below —
-          all transitions collapse to instant.
+          Three duration tokens, three easing curves. All animations must respect{' '}
+          <Code>prefers-reduced-motion</Code> — a global collapse rule is in place in{' '}
+          <Code>globals.css</Code>. Toggle the simulation below to verify instant behavior.
         </Prose>
 
         <button
