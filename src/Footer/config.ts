@@ -25,6 +25,35 @@ export const Footer: GlobalConfig = {
         },
       },
     },
+    {
+      name: 'address',
+      type: 'textarea',
+      admin: {
+        description: 'Business address. Line breaks render as separate lines in the footer.',
+      },
+    },
+    {
+      name: 'phoneNumber',
+      type: 'text',
+      admin: {
+        description: 'Click-to-call phone number. Include formatting, e.g. (910) 576-0531',
+      },
+    },
+    {
+      name: 'hoursOfOperation',
+      type: 'textarea',
+      admin: {
+        description:
+          'Hours of operation, e.g. "Mon–Fri: 8am–6pm\\nAvailable 24/7 for emergencies"',
+      },
+    },
+    {
+      name: 'serviceArea',
+      type: 'text',
+      admin: {
+        description: 'Service area descriptor, e.g. "Troy, NC and surrounding communities"',
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidateFooter],
