@@ -26,7 +26,7 @@ export const Condolences: React.FC<CondolencesProps> = async ({ relationID, subj
   })
 
   return (
-    <section className="mt-12" aria-labelledby="condolences-heading">
+    <section aria-labelledby="condolences-heading">
       <div className="space-y-8">
         <div className="border-b border-border pb-4">
           <h2 id="condolences-heading" className="font-heading text-2xl font-normal">
