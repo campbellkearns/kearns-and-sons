@@ -9,7 +9,7 @@ import RichText from '@/components/RichText'
 
 import type { Memorial } from '@/payload-types'
 
-import { PostHero } from '@/heros/PostHero'
+import { MemorialHero } from '@/heros/MemorialHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -59,7 +59,16 @@ export default async function Memorial({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <PostHero post={memorial} />
+      <MemorialHero
+        title={memorial.title}
+        heroImage={memorial.heroImage}
+        dateOfService={
+          memorial.serviceDetails?.pending
+            ? null
+            : memorial.serviceDetails?.serviceDateTime ?? null
+        }
+        categories={memorial.categories}
+      />
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">
