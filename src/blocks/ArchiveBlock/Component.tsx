@@ -33,10 +33,36 @@ export const ArchiveBlock: React.FC<
         : {}
 
     if (collection === 'memorials') {
-      const fetched = await payload.find({ collection: 'memorials', depth: 1, limit, ...whereClause })
+      const fetched = await payload.find({
+        collection: 'memorials',
+        depth: 1,
+        limit,
+        select: {
+          title: true,
+          slug: true,
+          categories: true,
+          meta: true,
+          serviceDetails: true,
+          publishedAt: true,
+        },
+        ...whereClause,
+      })
       docs = fetched.docs
     } else {
-      const fetched = await payload.find({ collection: 'posts', depth: 1, limit, ...whereClause })
+      const fetched = await payload.find({
+        collection: 'posts',
+        depth: 1,
+        limit,
+        select: {
+          title: true,
+          slug: true,
+          categories: true,
+          meta: true,
+          publishedAt: true,
+          populatedAuthors: true,
+        },
+        ...whereClause,
+      })
       docs = fetched.docs
     }
   } else {
@@ -54,7 +80,7 @@ export const ArchiveBlock: React.FC<
           <RichText className="ml-0 max-w-[48rem]" data={introContent} enableGutter={false} />
         </div>
       )}
-      <CollectionArchive posts={docs} />
+      <CollectionArchive posts={docs} relationTo={collection === 'memorials' ? 'memorials' : 'posts'} />
     </div>
   )
 }

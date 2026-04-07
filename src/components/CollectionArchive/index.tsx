@@ -1,32 +1,35 @@
 import { cn } from '@/utilities/ui'
 import React from 'react'
 
-import { Card, CardPostData } from '@/components/Card'
+import { Card, type CardData } from '@/components/Card'
 
 export type Props = {
-  posts: CardPostData[]
+  posts: CardData[]
+  relationTo: 'posts' | 'memorials'
 }
-// might not always be posts
 
-export const CollectionArchive: React.FC<Props> = (props) => {
-  const { posts } = props
+export const CollectionArchive: React.FC<Props> = ({ posts, relationTo }) => {
+  const isMemorical = relationTo === 'memorials'
 
   return (
     <div className={cn('container')}>
-      <div>
-        <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 xl:gap-x-8">
-          {posts?.map((result, index) => {
-            if (typeof result === 'object' && result !== null) {
-              return (
-                <div className="col-span-full" key={index}>
-                  <Card className="h-full" doc={result} relationTo="memorials" showCategories />
-                </div>
-              )
-            }
+      <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 xl:gap-x-8">
+        {posts?.map((result, index) => {
+          if (typeof result === 'object' && result !== null) {
+            return (
+              <div className={isMemorical ? 'col-span-full' : 'col-span-4'} key={index}>
+                <Card
+                  className="h-full"
+                  doc={result}
+                  relationTo={relationTo}
+                  variant={isMemorical ? 'memorial' : 'post'}
+                />
+              </div>
+            )
+          }
 
-            return null
-          })}
-        </div>
+          return null
+        })}
       </div>
     </div>
   )

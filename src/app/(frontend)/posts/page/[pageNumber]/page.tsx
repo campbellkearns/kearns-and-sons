@@ -31,6 +31,14 @@ export default async function Page({ params: paramsPromise }: Args) {
     limit: 12,
     page: sanitizedPageNumber,
     overrideAccess: false,
+    select: {
+      title: true,
+      slug: true,
+      categories: true,
+      meta: true,
+      publishedAt: true,
+      populatedAuthors: true,
+    },
   })
 
   return (
@@ -51,7 +59,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         />
       </div>
 
-      <CollectionArchive posts={posts.docs} />
+      <CollectionArchive posts={posts.docs} relationTo="posts" />
 
       <div className="container">
         {posts?.page && posts?.totalPages > 1 && (
