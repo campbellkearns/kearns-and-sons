@@ -13,7 +13,7 @@ import { MemorialHero } from '@/heros/MemorialHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { Comments } from '@/components/Comments'
+import { Condolences } from '@/components/Condolences'
 import { ServiceDetails } from '@/components/ServiceDetails'
 
 export async function generateStaticParams() {
@@ -80,7 +80,7 @@ export default async function Memorial({ params: paramsPromise }: Args) {
           <div className="max-w-[48rem] mx-auto">
             <ServiceDetails serviceDetails={memorial.serviceDetails} />
           </div>
-          <Comments relationID={memorial.id} relationTo="memorials" subjectName={memorial.title} />
+          <Condolences relationID={memorial.id} subjectName={memorial.title} />
         </div>
       </div>
     </article>
