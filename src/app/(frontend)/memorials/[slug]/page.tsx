@@ -15,6 +15,7 @@ import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Condolences } from '@/components/Condolences'
 import { ServiceDetails } from '@/components/ServiceDetails'
+import { SectionDivider } from '@/components/ui/section-divider'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -50,8 +51,10 @@ export default async function Memorial({ params: paramsPromise }: Args) {
 
   if (!memorial) return <PayloadRedirects url={url} />
 
+  const hasContent = (memorial.content?.root?.children?.length ?? 0) > 0
+
   return (
-    <article className="pt-16 pb-16">
+    <main id="main-content" className="pt-16 pb-24">
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
@@ -70,20 +73,22 @@ export default async function Memorial({ params: paramsPromise }: Args) {
         categories={memorial.categories}
       />
 
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="container">
-          <RichText
-            className="max-w-[48rem] mx-auto"
-            data={memorial.content}
-            enableGutter={false}
-          />
-          <div className="max-w-[48rem] mx-auto">
-            <ServiceDetails serviceDetails={memorial.serviceDetails} />
-          </div>
+      <div className="container">
+        <div className="max-w-[48rem] mx-auto px-4">
+          {hasContent && (
+            <RichText className="mt-16" data={memorial.content} enableGutter={false} />
+          )}
+
+          <SectionDivider className="my-12" />
+
+          <ServiceDetails serviceDetails={memorial.serviceDetails} />
+
+          <SectionDivider className="my-12" />
+
           <Condolences relationID={memorial.id} subjectName={memorial.title} />
         </div>
       </div>
-    </article>
+    </main>
   )
 }
 

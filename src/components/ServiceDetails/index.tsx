@@ -34,7 +34,7 @@ export const ServiceDetails: React.FC<Props> = ({ serviceDetails }) => {
   const hasViewing = viewingDateTime && viewingLocation
 
   return (
-    <section className="border-t border-border mt-12 py-6">
+    <section className="py-6">
       <h2 className="font-heading text-2xl font-normal mb-6">Service Details</h2>
 
       {pending ? (
