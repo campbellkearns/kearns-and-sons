@@ -30,7 +30,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
       {phoneNumber && (
         <a
           href={`tel:${phoneNumber.replace(/\D/g, '')}`}
-          className="text-sm font-semibold whitespace-nowrap hover:underline"
+          className="font-body text-sm text-foreground whitespace-nowrap hover:underline"
           aria-label={`Call us at ${phoneNumber}`}
         >
           {phoneNumber}
