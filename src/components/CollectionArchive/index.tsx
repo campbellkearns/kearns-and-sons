@@ -9,7 +9,7 @@ export type Props = {
 }
 
 export const CollectionArchive: React.FC<Props> = ({ posts, relationTo }) => {
-  const isMemorical = relationTo === 'memorials'
+  const isMemorial = relationTo === 'memorials'
 
   return (
     <div className={cn('container')}>
@@ -17,12 +17,12 @@ export const CollectionArchive: React.FC<Props> = ({ posts, relationTo }) => {
         {posts?.map((result, index) => {
           if (typeof result === 'object' && result !== null) {
             return (
-              <div className={isMemorical ? 'col-span-full' : 'col-span-4'} key={index}>
+              <div className={isMemorial ? 'col-span-full' : 'col-span-4'} key={index}>
                 <Card
                   className="h-full"
                   doc={result}
                   relationTo={relationTo}
-                  variant={isMemorical ? 'memorial' : 'post'}
+                  variant={isMemorial ? 'memorial' : 'post'}
                 />
               </div>
             )
