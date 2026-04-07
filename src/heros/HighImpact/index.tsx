@@ -15,31 +15,47 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
     setHeaderTheme('dark')
   })
 
+  const hasImage = media && typeof media === 'object'
+
   return (
     <div
-      className="relative -mt-[5.2rem] flex items-center justify-center text-white"
+      className="relative -mt-[5.2rem] flex items-center justify-center min-h-[80vh] overflow-hidden"
       data-theme="dark"
     >
-      <div className="container my-8 z-10 relative flex items-center justify-center">
-        <div className="max-w-[36.5rem] md:text-center">
-          {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
-          {Array.isArray(links) && links.length > 0 && (
-            <ul className="flex md:justify-center gap-4">
-              {links.map(({ link }, i) => {
-                return (
-                  <li key={i}>
-                    <CMSLink {...link} />
-                  </li>
-                )
-              })}
-            </ul>
-          )}
-        </div>
-        <div className="min-h-[50vh] select-none">
-          {media && typeof media === 'object' && (
-            <Media fill imgClassName="-z-10  " priority resource={media} />
-          )}
-        </div>
+      {/* Background image */}
+      {hasImage ? (
+        <Media fill priority imgClassName="-z-10 object-cover" resource={media} />
+      ) : (
+        <div className="absolute inset-0 -z-10 bg-primary" aria-hidden="true" />
+      )}
+
+      {/* Gradient overlay for legibility */}
+      <div
+        className="absolute inset-0 -z-[5] bg-gradient-to-t from-black/80 via-black/50 to-black/20"
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <div className="container relative z-10 flex flex-col items-center text-center py-32 px-6">
+        {richText && (
+          <div className="[&_h1]:text-display [&_h2]:text-display [&_h1]:font-normal [&_h2]:font-normal [&_h1]:tracking-wide [&_h2]:tracking-wide mb-8 max-w-[48rem]">
+            <RichText className="text-white" data={richText} enableGutter={false} />
+          </div>
+        )}
+        {Array.isArray(links) && links.length > 0 && (
+          <ul
+            className="flex flex-wrap justify-center gap-4 text-white"
+            style={{ '--border': '0 0% 100%' } as React.CSSProperties}
+          >
+            {links.map(({ link }, i) => {
+              return (
+                <li key={i}>
+                  <CMSLink {...link} />
+                </li>
+              )
+            })}
+          </ul>
+        )}
       </div>
     </div>
   )
