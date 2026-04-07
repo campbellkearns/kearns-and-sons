@@ -10,6 +10,40 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
+      name: 'servicesLinks',
+      label: 'Services Column Links',
+      type: 'array',
+      fields: [
+        link({
+          appearances: false,
+        }),
+      ],
+      maxRows: 8,
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: '@/Footer/RowLabel#RowLabel',
+        },
+      },
+    },
+    {
+      name: 'companyLinks',
+      label: 'Company Column Links',
+      type: 'array',
+      fields: [
+        link({
+          appearances: false,
+        }),
+      ],
+      maxRows: 8,
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: '@/Footer/RowLabel#RowLabel',
+        },
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
