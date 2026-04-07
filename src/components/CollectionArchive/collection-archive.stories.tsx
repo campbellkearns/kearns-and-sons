@@ -17,8 +17,8 @@ type Story = StoryObj<typeof CollectionArchive>
 
 const memorialDocs = [
   {
-    title: 'Margaret Anne Whitfield',
-    slug: 'margaret-anne-whitfield',
+    title: 'Margaret Anne Whitacre',
+    slug: 'margaret-anne-whitacre',
     categories: [],
     meta: {
       description:
