@@ -24,6 +24,8 @@ export default async function Page() {
       slug: true,
       categories: true,
       meta: true,
+      serviceDetails: true,
+      publishedAt: true,
     },
   })
 
@@ -45,7 +47,7 @@ export default async function Page() {
         />
       </div>
 
-      <CollectionArchive posts={memorials.docs} />
+      <CollectionArchive posts={memorials.docs} relationTo="memorials" />
 
       <div className="container">
         {memorials.totalPages > 1 && memorials.page && (
