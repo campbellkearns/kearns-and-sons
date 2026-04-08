@@ -9,8 +9,8 @@ export const TrustBarBlock: React.FC<TrustBarBlockProps> = ({ items }) => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 py-12 border-y border-border">
         {items.map(({ label, detail, id }) => (
           <div key={id ?? label} className="flex flex-col items-center text-center gap-1">
-            <p className="font-semibold">{label}</p>
-            <p className="text-sm text-muted-foreground">{detail}</p>
+            <p className="font-heading font-semibold">{label}</p>
+            <p className="text-sm text-label">{detail}</p>
           </div>
         ))}
       </div>

@@ -190,7 +190,7 @@ export const FormBlock: React.FC<
                   })}
               </div>
 
-              <Button form={formID} type="submit" variant="default">
+              <Button form={formID} type="submit" variant="default" className="w-full sm:w-auto">
                 {submitButtonLabel}
               </Button>
             </form>
