@@ -12,7 +12,7 @@ export const ContactInfoBlock: React.FC<ContactInfoBlockProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10">
         {phone && (
           <div className="flex flex-col gap-1">
-            <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Phone</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-label">Phone</p>
             <a
               href={`tel:${phone.replace(/\D/g, '')}`}
               className="text-lg font-medium hover:underline"
@@ -24,13 +24,13 @@ export const ContactInfoBlock: React.FC<ContactInfoBlockProps> = ({
         )}
         {address && (
           <div className="flex flex-col gap-1">
-            <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Address</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-label">Address</p>
             <address className="not-italic text-base whitespace-pre-line">{address}</address>
           </div>
         )}
         {hours && (
           <div className="flex flex-col gap-1">
-            <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Hours</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-label">Hours</p>
             <p className="text-base whitespace-pre-line">{hours}</p>
           </div>
         )}
