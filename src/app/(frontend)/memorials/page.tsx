@@ -3,6 +3,7 @@ import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
+import { LowImpactHero } from '@/heros/LowImpact'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -30,13 +31,15 @@ export default async function Page() {
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <div className="pb-24">
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Memorials</h1>
-        </div>
-      </div>
+
+      <LowImpactHero>
+        <h1 className="font-heading text-3xl leading-snug">Memorials</h1>
+      </LowImpactHero>
+
+      {/* TODO: filter bar — name, date range, category (DEV-21) */}
+      <div aria-hidden="true" />
 
       <div className="container mb-8">
         <PageRange
