@@ -60,16 +60,17 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       <PostHero post={post} />
 
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
-          {post.relatedPosts && post.relatedPosts.length > 0 && (
-            <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              docs={post.relatedPosts.filter((post) => typeof post === 'object')}
-            />
-          )}
-        </div>
+      <div className="container">
+        <RichText className="max-w-[48rem] mx-auto mt-8" data={post.content} enableGutter={false} />
+
+        {post.relatedPosts && post.relatedPosts.length > 0 && (
+          <div className="max-w-[48rem] mx-auto mt-16">
+            <p className="text-sm font-semibold uppercase tracking-wide text-label mb-6">
+              More from News &amp; Resources
+            </p>
+            <RelatedPosts docs={post.relatedPosts.filter((post) => typeof post === 'object')} />
+          </div>
+        )}
       </div>
     </article>
   )
