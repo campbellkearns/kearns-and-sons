@@ -495,9 +495,9 @@ function DesignTokensPage() {
           computed value, not a hardcoded hex. Light and dark themes are shown side-by-side using
           scoped <Code>data-theme</Code> wrappers.{' '}
           <strong style={{ color: 'hsl(var(--foreground))' }}>
-            ⚠ --muted-foreground contrast at 7:1 AAA is unverified
+            ⚠ --muted-foreground fails WCAG AAA (7:1) — ~4.1:1 light, ~4.3:1 dark
           </strong>{' '}
-          — use only for decorative or redundant text until DEV-64 confirms the ratio.
+          — confirmed decorative-only in DEV-64. Never use for body copy, labels, or interactive states.
         </Prose>
         <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
           <ThemePanel theme="light" />
