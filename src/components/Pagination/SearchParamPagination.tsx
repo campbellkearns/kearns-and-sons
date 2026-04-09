@@ -10,7 +10,7 @@ type Props = {
   totalPages: number
 }
 
-export const MemorialPagination: React.FC<Props> = ({ page, totalPages }) => {
+export const SearchParamPagination: React.FC<Props> = ({ page, totalPages }) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 

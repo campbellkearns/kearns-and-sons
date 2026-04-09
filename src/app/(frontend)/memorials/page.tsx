@@ -2,8 +2,8 @@ import type { Metadata } from 'next/types'
 import type { Where } from 'payload'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
-import { MemorialFilterBar } from '@/components/MemorialFilterBar'
-import { MemorialPagination } from '@/components/MemorialFilterBar/MemorialPagination'
+import { ArchiveFilterBar } from '@/components/ArchiveFilterBar'
+import { SearchParamPagination } from '@/components/Pagination/SearchParamPagination'
 import { PageRange } from '@/components/PageRange'
 import { LowImpactHero } from '@/heros/LowImpact'
 import configPromise from '@payload-config'
@@ -91,7 +91,10 @@ export default async function Page({
         <h1 className="font-heading text-3xl leading-snug">Memorials</h1>
       </LowImpactHero>
 
-      <MemorialFilterBar initialValues={{ name, month, year }} />
+      <ArchiveFilterBar
+        initialValues={{ name, month, year }}
+        searchPlaceholder="Search by name…"
+      />
 
       <div className="container mb-8 mt-6">
         <PageRange
@@ -115,7 +118,7 @@ export default async function Page({
 
       <div className="container">
         {memorials.totalPages > 1 && memorials.page && (
-          <MemorialPagination page={memorials.page} totalPages={memorials.totalPages} />
+          <SearchParamPagination page={memorials.page} totalPages={memorials.totalPages} />
         )}
       </div>
     </div>

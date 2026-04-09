@@ -15,6 +15,9 @@ import React, { useEffect, useRef, useState } from 'react'
 
 type Props = {
   initialValues: { name: string; month: string; year: string }
+  searchLabel?: string
+  searchPlaceholder?: string
+  showDateFilters?: boolean
 }
 
 const MONTHS = [
@@ -44,7 +47,12 @@ function buildUrl(values: { name: string; month: string; year: string }) {
   return qs ? `?${qs}` : '?'
 }
 
-export const MemorialFilterBar: React.FC<Props> = ({ initialValues }) => {
+export const ArchiveFilterBar: React.FC<Props> = ({
+  initialValues,
+  searchLabel = 'Search',
+  searchPlaceholder = 'Search by name…',
+  showDateFilters = true,
+}) => {
   const router = useRouter()
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -108,59 +116,63 @@ export const MemorialFilterBar: React.FC<Props> = ({ initialValues }) => {
           {/* Name search */}
           <div className="flex-1 sm:max-w-xs">
             <label className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-muted-foreground">
-              Search
+              {searchLabel}
             </label>
             <div className="relative">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 className="pl-9"
                 onChange={handleNameChange}
-                placeholder="Search by name…"
+                placeholder={searchPlaceholder}
                 type="text"
                 value={name}
               />
             </div>
           </div>
 
-          {/* Month */}
-          <div className="w-full sm:w-44">
-            <label className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-muted-foreground">
-              Month
-            </label>
-            <Select onValueChange={handleMonthChange} value={month || ALL}>
-              <SelectTrigger>
-                <SelectValue placeholder="All months" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={ALL}>All months</SelectItem>
-                {MONTHS.map((m) => (
-                  <SelectItem key={m.value} value={m.value}>
-                    {m.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          {showDateFilters && (
+            <>
+              {/* Month */}
+              <div className="w-full sm:w-44">
+                <label className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-muted-foreground">
+                  Month
+                </label>
+                <Select onValueChange={handleMonthChange} value={month || ALL}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="All months" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL}>All months</SelectItem>
+                    {MONTHS.map((m) => (
+                      <SelectItem key={m.value} value={m.value}>
+                        {m.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-          {/* Year */}
-          <div className="w-full sm:w-32">
-            <label className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-muted-foreground">
-              Year
-            </label>
-            <Select onValueChange={handleYearChange} value={year || ALL}>
-              <SelectTrigger>
-                <SelectValue placeholder="All years" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={ALL}>All years</SelectItem>
-                {years.map((y) => (
-                  <SelectItem key={y} value={y}>
-                    {y}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+              {/* Year */}
+              <div className="w-full sm:w-32">
+                <label className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-muted-foreground">
+                  Year
+                </label>
+                <Select onValueChange={handleYearChange} value={year || ALL}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="All years" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL}>All years</SelectItem>
+                    {years.map((y) => (
+                      <SelectItem key={y} value={y}>
+                        {y}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </>
+          )}
 
           {/* Clear — only rendered when filters are active */}
           {hasFilters && (
